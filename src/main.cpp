@@ -1,5 +1,5 @@
 /*  src/main.cpp */
-
+// git scm test
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
 #define VERSION "v6.001"                                                                            // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
