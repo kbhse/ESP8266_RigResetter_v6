@@ -13,6 +13,8 @@
 
     void saveConfigCallback();
 
+    void wiFiManagerDo();
+
     void connectToLastUsedAccessPoint();
 
     void statusLED(int flashes, String message);

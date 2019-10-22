@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.002"                                                                            // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.003"                                                                            // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -25,32 +25,43 @@ char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                               
 BlynkTimer timer;
 
 void setup()
-  {
+    {
 
-  Serial.begin(115200);
-  Serial.printf("\n\n%s_%s, %s, %s\n\n", PROGNAM, VERSION, AUTHOR, CREATION_DATE);
+    Serial.begin(115200);
+    Serial.printf("\n\n%s_%s, %s, %s\n\n", PROGNAM, VERSION, AUTHOR, CREATION_DATE);
 
-  Blynk.begin(auth, ssid, password);
-  //Blynk.connect();
+    Blynk.begin(auth, ssid, password);
+    //Blynk.connect();
 
-  mbA.pcf8574_init();                                                                              // start the PCF8574 devices and I2C
+    mbA.pcf8574_init();                                                                            // start the PCF8574 devices and I2C
                                                                                                    // NB only needs called for 1 PCF8574 object to call Wire.begin (I2C) in PCF8574.cpp
 
-  setPortPins();                                                                                   // set the PCF8574 port pins
+    setPortPins();                                                                                 // set the PCF8574 port pins
 
-  timer.setInterval(500L, getPcbInputs);                                                           // timer to poll the pcb inputs states
+    timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
 
-  auxOutP6.setAuxOutState(LOW);                                                                    // turn auxOutP6 (and associated pcb led) OFF
-  pcbPowerLed.setAuxOutState(LOW);                                                                 // turn OFF pcb 5V power led until system connected TO wIfI. active HIGH
+    auxOutP6.setAuxOutState(LOW);                                                                  // turn auxOutP6 (and associated pcb led) OFF
+    pcbPowerLed.setAuxOutState(LOW);                                                               // turn OFF pcb 5V power led until system connected TO wIfI. active HIGH
 
-  boolean configSwitch = auxInP7.getAuxInState();
-  readParamsFromFSJson(configSwitch);
+    boolean configSwitch = auxInP7.getAuxInState();
+    readParamsFromFSJson(configSwitch);
 
-  } // end of setup()
+    if(configSwitch)                                                                               // if configSwitch is ON (nb replace with pcfP.readButton(7) later)
+        {
+        wiFiManagerDo();                                                                           // run WiFi Manager on-demand config portal
+        }
+    else
+        {
+        connectToLastUsedAccessPoint();                                                            // connect to the last used WiFi access point using configuration saved in flash memory by SDK
+        }
+
+    pcbPowerLed.setAuxOutState(HIGH);                                                              // connected to WiFi network, turn ON pcb 5V power led
+    
+    }// end of setup()
 
 
 void loop()
-  {
-  Blynk.run();
-  timer.run();
-  } // end of loop()
+    {
+    Blynk.run();
+    timer.run();
+    } // end of loop()
