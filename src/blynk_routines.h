@@ -166,4 +166,19 @@ BLYNK_WRITE(V19)
   auxOutP6.setAuxOutState(state);                                                                  // active HIGH
   }
 
+// a button widget in the app on (V11) calls this function when its state changes
+// it sets the autoRestartFlg for motherboard A
+BLYNK_WRITE(V11)
+    {
+    mbA.setAutoRestartFlg = param.asInt();
+    }
+
+// a button widget in the app on (V12) calls this function when its state changes
+// it sets the autoRestartFlg for motherboard B
+BLYNK_WRITE(V12)
+    {
+    mbB.setAutoRestartFlg = param.asInt();
+    }
+
+
 #endif /* BLYNK_ROUTINES_H */
