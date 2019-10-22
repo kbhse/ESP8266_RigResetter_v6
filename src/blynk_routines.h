@@ -170,14 +170,16 @@ BLYNK_WRITE(V19)
 // it sets the autoRestartFlg for motherboard A
 BLYNK_WRITE(V11)
     {
-    mbA.setAutoRestartFlg = param.asInt();
+    boolean state = param.asInt();
+    mbA.setAutoRestartFlg(state);
     }
 
 // a button widget in the app on (V12) calls this function when its state changes
 // it sets the autoRestartFlg for motherboard B
 BLYNK_WRITE(V12)
     {
-    mbB.setAutoRestartFlg = param.asInt();
+    boolean state = param.asInt();
+    mbB.setAutoRestartFlg(state);
     }
 
 

@@ -12,6 +12,7 @@
     //extern BlynkTimer timer;
     extern SimpleTimer timer;
     extern Motherboard mbA;
+    extern Motherboard mbB;
 
     void wdACallback();
 
