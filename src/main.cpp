@@ -16,6 +16,7 @@
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
+#include "SmosSrrUdp.h"
 
 // NB remove credentials when WiFi Manager enabled !!
 const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
