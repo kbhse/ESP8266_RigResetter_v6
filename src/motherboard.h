@@ -17,10 +17,11 @@
             boolean _resetSwitchState;
             int _heartbeatLedPin;
             boolean _heartbeatLedState;
+            boolean _autoRestartFlg;
     
         public:
 
-            void pcf8574_init();                                                                     // start the PCF8574 MP device (pcfMP.begin())
+            void pcf8574_init();                                                                   // start the PCF8574 MP device (pcfMP.begin())
                                                                                                    // NB only needs called by 1 Motherboard object eg mbA
             /*
             // Constructor
@@ -32,6 +33,7 @@
             boolean getPowerSwitchState();
             boolean getPowerLedState();
             boolean getResetSwitchState();
+            boolean getAutoRestartFlg();
 
             // Setters
 
@@ -43,6 +45,7 @@
             void setPowerSwitchState(boolean state);
             void setResetSwitchState(boolean state);
             void setHeartbeatLedState(boolean state);
+            void setAutoRestartFlg(boolean state);
 
         };
 
