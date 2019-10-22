@@ -5,8 +5,9 @@
 
     #include <Arduino.h>
     //#include "BlynkSimpleEsp8266.h" 
-    #include "SimpleTimer.h"
-
+    #include "SimpleTimer.h"                                                                       // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
+    #include <ESP8266WiFi.h>
+    
     //extern BlynkTimer timer;
     extern SimpleTimer timer;
 

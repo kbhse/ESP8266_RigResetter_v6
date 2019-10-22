@@ -15,7 +15,7 @@
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"
-#include "SimpleTimer.h"
+#include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
 // NB remove credentials when WiFi Manager enabled !!
 const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
@@ -23,7 +23,7 @@ const char* password = "nB67c3zuRlPrAVcZL5YN";                                  
 char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                                                  // Blynk app Auth Token (get from Project Settings (nut icon))
 
 //BlynkTimer timer;
-SimpleTimer timer;
+SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
 void setup()
     {
