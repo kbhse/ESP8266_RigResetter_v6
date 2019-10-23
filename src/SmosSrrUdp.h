@@ -16,6 +16,9 @@
     extern Motherboard mbA;
     extern Motherboard mbB;
 
+    extern int wd_timer_A_id;                                                                                   // ids of watchdog timers
+    extern int wd_timer_B_id;
+
     void wdACallback();
 
     void listenForSmosUdpPackets();

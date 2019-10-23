@@ -26,14 +26,14 @@ char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                               
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
+int wd_timer_A_id;                                                                                   // ids of watchdog timers
+int wd_timer_B_id;
+
 void setup()
     {
 
     Serial.begin(115200);
     Serial.printf("\n\n%s_%s, %s, %s\n\n", PROGNAM, VERSION, AUTHOR, CREATION_DATE);
-
-    Blynk.begin(auth, ssid, password);
-    //Blynk.connect();
 
     mbA.pcf8574_init();                                                                            // start the PCF8574 devices and I2C
                                                                                                    // NB only needs called for 1 PCF8574 object to call Wire.begin (I2C) in PCF8574.cpp
@@ -46,11 +46,11 @@ void setup()
     pcbPowerLed.setAuxOutState(LOW);                                                               // turn OFF pcb 5V power led until system connected TO wIfI. active HIGH
 
     boolean configSwitch = auxInP7.getAuxInState();
-    readParamsFromFSJson(configSwitch);
     #ifdef DEBUG_OUT
         Serial.print(F("configSwitch: "));
         Serial.println(configSwitch ? "On" : "Off");
     #endif
+    readParamsFromFSJson(configSwitch);
 
     if(configSwitch)                                                                               // if configSwitch is ON (nb replace with pcfP.readButton(7) later)
         {
@@ -65,6 +65,14 @@ void setup()
 
     listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
     
+    Blynk.begin(auth, ssid, password);
+    //Blynk.connect();
+
+
+
+    long timeout = smosSrrTimeout * 60000;
+    wd_timer_A_id = timer.setInterval(timeout, wdACallback);                      // start the watchdog timer for motherboard A
+
     }// end of setup()
 
 
