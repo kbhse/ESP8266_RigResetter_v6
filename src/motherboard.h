@@ -18,11 +18,14 @@
             boolean _powerLedState;
             boolean _resetSwitchState;
             boolean _heartbeatLedState;
-            boolean _autoRestartFlg;
+            boolean _autoRestartFlag;
+
             int _smosSrrUdpPort;
             int _smosSrrTimeout;
             int _smosSrrSerial;
             int _smosSrrSlot;
+
+            boolean _heartbeatFlag;
     
         public:
 
@@ -39,12 +42,14 @@
             boolean getPowerLedState();
             boolean getResetSwitchState();
             boolean getheartbeatLedState();
-            boolean getAutoRestartFlg();
+            boolean getAutoRestartFlag();
 
             int getSmosSrrUdpPort();
             int getSmosSrrTimeout();
             int getSmosSrrSerial();
             int getSmosSrrSlot();
+
+            boolean getHeartbeatFlag();
 
             // Setters
 
@@ -56,12 +61,14 @@
             void setPowerSwitchState(boolean state);
             void setResetSwitchState(boolean state);
             void setHeartbeatLedState(boolean state);
-            void setAutoRestartFlg(boolean state);
+            void setAutoRestartFlag(boolean state);
 
             void setSmosSrrUdpPort(int val);
             void setSmosSrrTimeout(int val);
             void setSmosSrrSerial(int val);
             void setSmosSrrSlot(int val);
+
+            void setHeartbeatFlag(boolean state);
 
         };
 

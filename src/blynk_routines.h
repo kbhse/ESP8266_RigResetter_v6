@@ -172,7 +172,7 @@ BLYNK_WRITE(V19)
 BLYNK_WRITE(V11)
     {
     boolean state = param.asInt();
-    mbA.setAutoRestartFlg(state);
+    mbA.setAutoRestartFlag(state);
     }
 
 // a button widget in the app on (V12) calls this function when its state changes
@@ -180,7 +180,7 @@ BLYNK_WRITE(V11)
 BLYNK_WRITE(V12)
     {
     boolean state = param.asInt();
-    mbB.setAutoRestartFlg(state);
+    mbB.setAutoRestartFlag(state);
     }
 
 // a Numeric Input widget in the app on (V30) calls this function when its state changes

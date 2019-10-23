@@ -18,7 +18,7 @@ void wdACallback()
    terminal.print(F(" MB A watchdog timeout!"));
    terminal.flush();
   #endif
-  if(mbA.getAutoRestartFlg())                                                                                 // if motherboard A auto-restart is selected
+  if(mbA.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());

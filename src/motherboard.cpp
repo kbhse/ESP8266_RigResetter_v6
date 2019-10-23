@@ -13,7 +13,7 @@
     int _resetSwitchPin;
     bool _heartbeatLedState;
     int _heartbeatLedPin;
-    bool _autoRestartFlg;
+    bool _autoRestartFlag;
 */
 
 PCF8574 pcfMP(0x39);                                                                               // create instance of the PCF8574 class for the MP device
@@ -33,10 +33,7 @@ Motherboard::Motherboard()
 
 // Getters
 
-boolean Motherboard::getPowerSwitchState()
-    {
-    return _powerSwitchState;
-    }
+boolean Motherboard::getPowerSwitchState() {return _powerSwitchState;}
 
 boolean Motherboard::getPowerLedState()
     {
@@ -44,55 +41,32 @@ boolean Motherboard::getPowerLedState()
     return _powerLedState;
     }
 
-boolean Motherboard::getResetSwitchState()
-    {
-    return _resetSwitchState;
-    }
+boolean Motherboard::getResetSwitchState() {return _resetSwitchState;}
 
-boolean Motherboard::getheartbeatLedState()
-    {
-    return _heartbeatLedState;
-    }
+boolean Motherboard::getheartbeatLedState() {return _heartbeatLedState;}
 
-boolean Motherboard::getAutoRestartFlg()
-    {
-    return _autoRestartFlg;
-    }
+boolean Motherboard::getAutoRestartFlag() {return _autoRestartFlag;}
 
-int Motherboard::getSmosSrrUdpPort()
-    {
-    return _smosSrrUdpPort;
-    }
+int Motherboard::getSmosSrrUdpPort() {return _smosSrrUdpPort;}
 
-int Motherboard::getSmosSrrTimeout()
-    {
-    return _smosSrrTimeout;
-    }
+int Motherboard::getSmosSrrTimeout() {return _smosSrrTimeout;}
 
-int Motherboard::getSmosSrrSerial()
-    {
-    return _smosSrrSerial;
-    }
+int Motherboard::getSmosSrrSerial() {return _smosSrrSerial;}
 
-int Motherboard::getSmosSrrSlot()
-    {
-    return _smosSrrSlot;
-    }
+int Motherboard::getSmosSrrSlot() {return _smosSrrSlot;}
+
+boolean Motherboard::getHeartbeatFlag() {return _heartbeatFlag;}
 
 
 // Setters
 
-void Motherboard::setPowerSwitchPin(int pin)
-    {
-    _powerSwitchPin = pin;
-    }
+void Motherboard::setPowerSwitchPin(int pin) {_powerSwitchPin = pin;}
 
 void Motherboard::setPowerLedPin(int pin) {_powerLedPin = pin;}
 
 void Motherboard::setResetSwitchPin(int pin) {_resetSwitchPin = pin;}
 
 void Motherboard::setHeartbeatLedPin(int pin) {_heartbeatLedPin = pin;}
-
 
 void Motherboard::setPowerSwitchState(boolean state)
     {
@@ -106,31 +80,16 @@ void Motherboard::setResetSwitchState(boolean state)
     pcfMP.write(_resetSwitchPin, !_resetSwitchState);                                              // active LOW
     }
 
-void Motherboard::setHeartbeatLedState(boolean state)
-    {
-    _heartbeatLedState = state;
-    }
-void Motherboard::setAutoRestartFlg(boolean state)
-    {
-    _autoRestartFlg = state;
-    }
+void Motherboard::setHeartbeatLedState(boolean state) {_heartbeatLedState = state;}
 
-void Motherboard::setSmosSrrUdpPort(int val)
-    {
-    _smosSrrUdpPort = val;
-    }
+void Motherboard::setAutoRestartFlag(boolean state) {_autoRestartFlag = state;}
 
-void Motherboard::setSmosSrrTimeout(int val)
-    {
-    _smosSrrTimeout = val;
-    }
+void Motherboard::setSmosSrrUdpPort(int val) {_smosSrrUdpPort = val;}
 
-void Motherboard::setSmosSrrSerial(int val)
-    {
-    _smosSrrSerial = val;
-    }
+void Motherboard::setSmosSrrTimeout(int val) {_smosSrrTimeout = val;}
 
-void Motherboard::setSmosSrrSlot(int val)
-    {
-    _smosSrrSlot = val;
-    }
+void Motherboard::setSmosSrrSerial(int val) {_smosSrrSerial = val;}
+
+void Motherboard::setSmosSrrSlot(int val) {_smosSrrSlot = val;}
+
+void Motherboard::setHeartbeatFlag(boolean state) {_heartbeatFlag = state;}
