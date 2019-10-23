@@ -8,6 +8,7 @@
 #define CREATION_DATE "October 2019"                                                               // date
 
 #define DEBUG_OUT                                                                                  // debug to serial monitor
+#define TERMINAL_OUT
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
