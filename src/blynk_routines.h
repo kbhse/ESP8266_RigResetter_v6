@@ -12,6 +12,10 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 
 #include "motherboard.h"
 #include "auxiliary.h"
+#include "TimeRoutines.h"
+#include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
+
+extern SimpleTimer timer;
 
 Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
 Motherboard mbA;
@@ -29,6 +33,9 @@ WidgetLED PowerLedB(V5);                                                        
 WidgetLED ConfigSwitchLed(V22);                                                                    // indicates state of pcb aux input P7 (CONFIG switch)
 WidgetLED heartbeatLedA(V3);                                                                             // 
 WidgetLED heartbeatLedB(V7);                                                                             // 
+
+WidgetTerminal terminal(V10);
+SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
 void setPortPins()
 	{
@@ -250,6 +257,18 @@ void readSHT30Sensor()
   	*/
   	}
 
+// turn heartbeat LED widget A OFF 
+void turnHeartbeatBlynkLedAOff()
+  	{
+  	heartbeatLedA.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
+  	}
+
+// turn heartbeat LED widget B OFF   
+void turnHeartbeatBlynkLedBOff()
+  	{
+  	heartbeatLedB.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
+  	}
+
 // the (global) heartbeatFlags are set by the SMOS_SRR_UPD routine when valid keep-alive messages are received (approx every 2 seconds).
 // this function will be called by a timer (timer.setInterval(5000L, flashHeartbeats)) in the setup() function.
 // it sends a message to the LED widget to turn ON and starts a timer to turn it OFF again.
@@ -271,16 +290,105 @@ void flashHeartbeats()                                                          
     	}
   	}
 
-// turn heartbeat LED widget A OFF 
-void turnHeartbeatBlynkLedAOff()
-  	{
-  	heartbeatLedA.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
-  	}
+// Terminal Commands 
+void terminalCommands()
+  {
+  terminal.println(F("Commands:"));
+  terminal.println(F("clr - clear the Log"));
+  terminal.println(F("env - log temperature and humidity"));
+  terminal.println(F("net - log SSID and IP"));
+  terminal.println(F("rst - Restart the ESP8266"));
+  terminal.println(F("?   - print this list"));
+  }
 
-// turn heartbeat LED widget B OFF   
-void turnHeartbeatBlynkLedBOff()
-  	{
-  	heartbeatLedB.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
-  	}
+// Blynk Terminal
+BLYNK_WRITE(V10)
+  {
+  //terminal.println();
+  if(String("?") == param.asStr())
+    {
+    terminalCommands();
+    }
+  else if(String("env") == param.asStr())
+    {
+    terminal.println(dateAndTime());
+    sht30.get();
+    terminal.print(F("Temperature: "));
+    terminal.print(sht30.cTemp);
+    terminal.print(F("c   Humidity: "));
+    terminal.print(sht30.humidity);
+    terminal.println(F("%"));
+    terminal.flush();
+    }
+  else if(String("net") == param.asStr())
+    {
+    terminal.println(dateAndTime());
+    terminal.print(F("Connected to: "));
+    terminal.println(WiFi.SSID());
+    terminal.print(F("IP address: "));
+    terminal.println(WiFi.localIP());
+    }
+    else if(String("clr") == param.asStr())
+    {
+    terminal.clear();                                                         					   // Clear the terminal content
+    }
+  else if(String("rst") == param.asStr())
+    {
+    terminal.println();
+    terminal.println(dateAndTime());
+    terminal.println(F("Restarting the ESP8266..."));
+    terminal.flush();
+    delay(500);                                           										   // delay to allow terminal message to send
+    ESP.restart();                                       										   // restart the ESP8266 https://techtutorialsx.com/2017/12/29/esp8266-arduino-software-restart/
+    }
+  else
+    {
+    //terminalCommands(); 
+    /*
+    // Send it back
+    terminal.println(dateAndTime());
+    terminal.print("You said:");
+    terminal.write(param.getBuffer(), param.getLength());
+    terminal.println();
+    */
+    }
+
+  // Ensure everything is sent
+  terminal.flush();
+  }
+  
+// log startup info to terminal
+void logStartup()                                     
+  {
+  terminal.println();
+  terminal.println(dateAndTime());
+  terminal.print(F("Rig Resetter "));
+  terminal.print(VERSION);
+  terminal.println(F(" started"));
+  terminal.print(F("Connected to: "));
+  terminal.println(WiFi.SSID());
+  terminal.print(F("IP address: "));
+  terminal.println(WiFi.localIP());
+  terminal.println(F("type '?' for list of commands"));
+  //terminalCommands();                                                                 		   // print list of Terminal commands
+  terminal.println();
+  terminal.flush();                                                                     		   // Ensure everything is sent
+  }
+
+// log the states of the Motherboard Power LEDs on startup
+void logMBPowerLedStates()
+  {
+  bool stateA = !pcfMP.readButton(1);
+  bool stateB = !pcfMP.readButton(5);
+  #ifdef TERMINAL_OUT
+    terminal.print(dateAndTime());
+    terminal.print(F(" MB A Power Led "));
+    terminal.println(stateA ? "On" : "Off");
+    terminal.print(dateAndTime());
+    terminal.print(F(" MB B Power Led "));
+    terminal.println(stateB ? "On" : "Off");
+    terminal.flush();
+  #endif
+  }
 
 #endif /* BLYNK_ROUTINES_H */

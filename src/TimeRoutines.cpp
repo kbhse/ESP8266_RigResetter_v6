@@ -1,6 +1,7 @@
 /* TimeRoutines.cpp */
 
 #include <Arduino.h>
+#include "TimeRoutines.h"
 
 String dateAndTime()                                                                               // WidgetRTC gets date and time from Blynk server and makes it available to device
   {                                                                                                // uses Time keeping library https://github.com/PaulStoffregen/Time

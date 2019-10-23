@@ -16,7 +16,6 @@
 #include "ESPConfigurationAP.h"
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
-#include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
 #include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
 #include <WidgetRTC.h>
 
@@ -30,7 +29,8 @@ SimpleTimer timer;                                                              
 
 WidgetRTC rtc;
 
-SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
+
+
 
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
