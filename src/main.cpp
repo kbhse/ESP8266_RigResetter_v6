@@ -47,6 +47,10 @@ void setup()
 
     boolean configSwitch = auxInP7.getAuxInState();
     readParamsFromFSJson(configSwitch);
+    #ifdef DEBUG_OUT
+        Serial.print(F("configSwitch: "));
+        Serial.println(configSwitch ? "On" : "Off");
+    #endif
 
     if(configSwitch)                                                                               // if configSwitch is ON (nb replace with pcfP.readButton(7) later)
         {

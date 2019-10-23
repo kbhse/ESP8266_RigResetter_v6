@@ -34,104 +34,107 @@ void wdACallback()
 // (approx every 2 seconds)
 
 void listenForSmosUdpPackets()
-  {
-  if(udp.listen(mb.getSmosSrrUdpPort()))
     {
-    Serial.printf("UDP Listening on IP: %s, Port: %d\n", WiFi.localIP().toString().c_str(), mb.getSmosSrrUdpPort());
-    
-    udp.onPacket([](AsyncUDPPacket packet)                                                                      // CALLBACK FUNCTION
-      {
-        
-      #ifdef DEBUG_OUT_UDP
-        Serial.print(millis()/1000);                                                                            // print packet to serial monitor
-        Serial.print(F(" "));
-        Serial.print(F("UDP Packet Type: "));
-        Serial.print(packet.isBroadcast()?"Broadcast":packet.isMulticast()?"Multicast":"Unicast");
-        Serial.print(F(", From: "));
-        Serial.print(packet.remoteIP());
-        Serial.print(F(":"));
-        Serial.print(packet.remotePort());
-        Serial.print(F(", To: "));
-        Serial.print(packet.localIP());
-        Serial.print(F(":"));
-        Serial.print(packet.localPort());
-        Serial.print(F(", Length: "));
-        Serial.print(packet.length());
-        Serial.print(F(", Data: "));
-        for (int i=0; i<packet.length(); i++)
-          {
-          Serial.printf(" %X", packet.data()[i]);                                                                // print data bytes in Hexidecimal
-          }
-        Serial.println();
-      #endif
-
-      if(packet.length() == 12)
+    #ifdef DEBUG_OUT
+        Serial.println(F("listening for SMOS SRR watchdog keep alive UDP packets"));
+    #endif
+    if(udp.listen(mb.getSmosSrrUdpPort()))
         {
-        // get SMOS SRR serial number from UPD packet
-        long smosSrrSerial;
-        smosSrrSerial = translateSmosSrrByte(packet.data()[7]) * 10000;
-        smosSrrSerial += translateSmosSrrByte(packet.data()[8]) * 100;
-        smosSrrSerial += translateSmosSrrByte(packet.data()[9]);
-        //Serial.println(smosSrrSerial);
-        //Serial.println(smosSrrSerial_A);
-        //Serial.println(smosSrrSerial_B);
-        if(smosSrrSerial == mbA.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
-          {
-          flashHeartbeatLedA();                                                                         // flash the heartbeat LED (pin 3 on MP PCF8574 is heartbeat A Led)
-          timer.restartTimer(wd_timer_A_id);                                                            // restart the watchdog timer for motherboard A
-          }
-        if(smosSrrSerial == mbB.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
-          {
-          flashHeartbeatLedB();                                                                         // flash the heartbeat LED (pin 7 on MP PCF8574 is heartbeat B Led)
-          }
+        Serial.printf("UDP Listening on IP: %s, Port: %d\n", WiFi.localIP().toString().c_str(), mb.getSmosSrrUdpPort());
+    
+        udp.onPacket([](AsyncUDPPacket packet)                                                                      // CALLBACK FUNCTION
+            {
+        
+            #ifdef DEBUG_OUT_UDP
+                Serial.print(millis()/1000);                                                                            // print packet to serial monitor
+                Serial.print(F(" "));
+                Serial.print(F("UDP Packet Type: "));
+                Serial.print(packet.isBroadcast()?"Broadcast":packet.isMulticast()?"Multicast":"Unicast");
+                Serial.print(F(", From: "));
+                Serial.print(packet.remoteIP());
+                Serial.print(F(":"));
+                Serial.print(packet.remotePort());
+                Serial.print(F(", To: "));
+                Serial.print(packet.localIP());
+                Serial.print(F(":"));
+                Serial.print(packet.localPort());
+                Serial.print(F(", Length: "));
+                Serial.print(packet.length());
+                Serial.print(F(", Data: "));
+                for (int i=0; i<packet.length(); i++)
+                    {
+                    Serial.printf(" %X", packet.data()[i]);                                                                // print data bytes in Hexidecimal
+                    }
+                Serial.println();
+            #endif
+
+            if(packet.length() == 12)
+                {
+                // get SMOS SRR serial number from UPD packet
+                long smosSrrSerial;
+                smosSrrSerial = translateSmosSrrByte(packet.data()[7]) * 10000;
+                smosSrrSerial += translateSmosSrrByte(packet.data()[8]) * 100;
+                smosSrrSerial += translateSmosSrrByte(packet.data()[9]);
+                //Serial.println(smosSrrSerial);
+                //Serial.println(smosSrrSerial_A);
+                //Serial.println(smosSrrSerial_B);
+                if(smosSrrSerial == mbA.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
+                    {
+                    flashHeartbeatLedA();                                                                         // flash the heartbeat LED (pin 3 on MP PCF8574 is heartbeat A Led)
+                    timer.restartTimer(wd_timer_A_id);                                                            // restart the watchdog timer for motherboard A
+                    }
+                if(smosSrrSerial == mbB.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
+                    {
+                    flashHeartbeatLedB();                                                                         // flash the heartbeat LED (pin 7 on MP PCF8574 is heartbeat B Led)
+                    }
+                }
+      
+            //Serial.println(packet.data()[8]);
+            //Serial.println(translateSmosSrrByte(packet.data()[8]));
+      
+            }); // end of callback function
         }
-      
-        //Serial.println(packet.data()[8]);
-        //Serial.println(translateSmosSrrByte(packet.data()[8]));
-      
-      }); // end of callback function
-    }
-  } // end of listenForSmosUdpPackets
+    } // end of listenForSmosUdpPackets
 
 //-----------------------------------------------------------
 void flashHeartbeatLedA()
-  {
-  pcfMP.write(3, LOW);                                                                                  // turn motherboard A heartbeat pcb LED ON (LOW is ON)
-  heartbeatAFlag = true;                                                                                // set heartbeatA flag
-  //heartbeatA.setValue(255);                                                                           // send ON state to Blynk heartbeat A LED (V3)
-  timer.setTimeout(150, turnLedAOff);                                                                   // Callback to turn LED back off after x mSeconds
-  }
+    {
+    pcfMP.write(3, LOW);                                                                                  // turn motherboard A heartbeat pcb LED ON (LOW is ON)
+    mbA.setHeartbeatFlag(true);                                                                           // set heartbeatFlag for motherboard A
+    //heartbeatA.setValue(255);                                                                           // send ON state to Blynk heartbeat A LED (V3)
+    timer.setTimeout(150, turnLedAOff);                                                                   // Callback to turn LED back off after x mSeconds
+    }
 
 //-----------------------------------------------------------
 void turnLedAOff()
-  {
-  pcfMP.write(3, HIGH);                                                                                 // turn motherboard A heartbeat pcb LED ON (HIGH is OFF)
-  //heartbeatA.setValue(35);                                                                            // send OFF state to Blynk heartbeat A LED (V3)
-  }
+    {
+    pcfMP.write(3, HIGH);                                                                                 // turn motherboard A heartbeat pcb LED ON (HIGH is OFF)
+    //heartbeatA.setValue(35);                                                                            // send OFF state to Blynk heartbeat A LED (V3)
+    }
 
 //-----------------------------------------------------------
 void flashHeartbeatLedB()
-  {
-  pcfMP.write(7, LOW);                                                                                   // turn motherboard heartbeat LED ON
-  heartbeatBFlag = true;                                                                                 // set heartbeatA flag
-  timer.setTimeout(150, turnLedBOff);                                                                    // Callback to turn LED back off after x mSeconds
-  }
+    {
+    pcfMP.write(7, LOW);                                                                                   // turn motherboard heartbeat LED ON
+    mbB.setHeartbeatFlag(true);                                                                            // set heartbeatFlag for motherboard B
+    timer.setTimeout(150, turnLedBOff);                                                                    // Callback to turn LED back off after x mSeconds
+    }
 
 //-----------------------------------------------------------
 void turnLedBOff()
-  {
-  pcfMP.write(7, HIGH);                                                                                   // HIGH is OFF
-  }
+    {
+    pcfMP.write(7, HIGH);                                                                                   // HIGH is OFF
+    }
 
 
 //-----------------------------------------------------------
 int translateSmosSrrByte(int x)
-  {
-  int y;
-  y = int(x / 16) * 10;
-  y = y + (x % 16);
-  return y;
-  }
+    {
+    int y;
+    y = int(x / 16) * 10;
+    y = y + (x % 16);
+    return y;
+    }
 
 // take a byte from udp packet and convert hex to dec such that eg 0x45 will give 45 decimal (not 69!) - SMOS SSR encoding !!?*!
 // method:
