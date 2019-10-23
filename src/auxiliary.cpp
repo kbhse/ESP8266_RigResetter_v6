@@ -28,7 +28,7 @@ void AuxOut::setAuxOutPin(int pin)
 void AuxOut::setAuxOutState(boolean state)
     {
     _auxOutState = state;
-    pcfP.write(_auxOutPin, _auxOutState);
+    pcfP.write(_auxOutPin, !_auxOutState);                                                         // active LOW
     }
 
 void AuxIn::setAuxInPin(int pin)

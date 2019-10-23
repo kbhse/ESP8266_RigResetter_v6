@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.004"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.005"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -21,9 +21,11 @@
 #include <WidgetRTC.h>
 
 // NB remove credentials when WiFi Manager enabled !!
+/*
 const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
 const char* password = "nB67c3zuRlPrAVcZL5YN";                                                     // WiFi credentials, password
-char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                                                  // Blynk app Auth Token (get from Project Settings (nut icon))
+char auth[] = "yCRwlrGIVnRlZE6xNLNIg7409KU4vjz9";                                                  // Blynk app Auth Token (get from Project Settings (nut icon))
+*/
 
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files

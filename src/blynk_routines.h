@@ -157,7 +157,17 @@ BLYNK_WRITE(V6)
 BLYNK_WRITE(V15)
 	{
 	int state = param.asInt();
-	fan1.setAuxOutState(!state);                                                                     // active LOW !
+	fan1.setAuxOutState(state);
+	#ifdef DEBUG_OUT
+    	Serial.print(F("relay 1: "));
+    	Serial.println(fan1.getAuxOutState());
+  	#endif
+  	#ifdef TERMINAL_OUT
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" Aux Fan 1  "));
+    	terminal.println(fan1.getAuxOutState() ? "On" : "Off");
+    	terminal.flush();
+  	#endif
 	}
 
 // a button widget in the app on (V16) calls this function when its state changes
@@ -165,7 +175,17 @@ BLYNK_WRITE(V15)
 BLYNK_WRITE(V16)
 	{
 	int state = param.asInt();
-	fan2.setAuxOutState(!state);                                                                     // active LOW !
+	fan2.setAuxOutState(state);
+	#ifdef DEBUG_OUT
+    	Serial.print(F("relay 2: "));
+    	Serial.println(fan2.getAuxOutState());
+  	#endif
+  	#ifdef TERMINAL_OUT
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" Aux Fan 2  "));
+    	terminal.println(fan2.getAuxOutState() ? "On" : "Off");
+    	terminal.flush();
+  	#endif
 	}
 
 // a button widget in the app on (V19) calls this function when its state changes
