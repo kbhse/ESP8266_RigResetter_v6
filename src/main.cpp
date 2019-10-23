@@ -10,7 +10,6 @@
 #define DEBUG_OUT                                                                                  // debug to serial monitor
 
 #include <Arduino.h>
-//#include "motherboard.h"
 #include <ESP8266WiFi.h>
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
