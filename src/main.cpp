@@ -25,7 +25,7 @@ char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                               
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
-int wd_timer_A_id;                                                                                   // ids of watchdog timers
+int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
 
 void setup()

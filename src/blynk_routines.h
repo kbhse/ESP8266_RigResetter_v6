@@ -199,6 +199,36 @@ BLYNK_WRITE(V31)
 		mb.setSmosSrrTimeout(val);
 		}
 
+// a Numeric Input widget in the app on (V32) calls this function when its state changes
+// the widget will update the smosSrrSerial variable for motherboard A
+BLYNK_WRITE(V32)
+		{
+		int val = param.asInt();
+		mbA.setSmosSrrSerial(val);
+		}
 
+// a Numeric Input widget in the app on (V33) calls this function when its state changes
+// the widget will update the smosSrrSlot variable for motherboard A
+BLYNK_WRITE(V33)
+		{
+		int val = param.asInt();
+		mbA.setSmosSrrSlot(val);
+		}
+
+// a Numeric Input widget in the app on (V36) calls this function when its state changes
+// the widget will update the smosSrrSerial variable for motherboard B
+BLYNK_WRITE(V36)
+		{
+		int val = param.asInt();
+		mbB.setSmosSrrSerial(val);
+		}
+
+// a Numeric Input widget in the app on (V37) calls this function when its state changes
+// the widget will update the smosSrrSlot variable for motherboard B
+BLYNK_WRITE(V37)
+		{
+		int val = param.asInt();
+		mbB.setSmosSrrSlot(val);
+		}
 
 #endif /* BLYNK_ROUTINES_H */
