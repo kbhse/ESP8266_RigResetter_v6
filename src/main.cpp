@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.005"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.006"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -31,9 +31,6 @@ char auth[] = "********************************";                               
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
 WidgetRTC rtc;
-
-
-
 
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
