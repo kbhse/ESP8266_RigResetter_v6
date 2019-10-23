@@ -46,13 +46,39 @@ boolean Motherboard::getPowerLedState()
 
 boolean Motherboard::getResetSwitchState()
     {
-     return _resetSwitchState;
+    return _resetSwitchState;
+    }
+
+boolean Motherboard::getheartbeatLedState()
+    {
+    return _heartbeatLedState;
     }
 
 boolean Motherboard::getAutoRestartFlg()
     {
     return _autoRestartFlg;
     }
+
+int Motherboard::getSmosSrrUdpPort()
+    {
+    return _smosSrrUdpPort;
+    }
+
+int Motherboard::getSmosSrrTimeout()
+    {
+    return _smosSrrTimeout;
+    }
+
+int Motherboard::getSmosSrrSerial()
+    {
+    return _smosSrrSerial;
+    }
+
+int Motherboard::getSmosSrrSlot()
+    {
+    return _smosSrrSlot;
+    }
+
 
 // Setters
 
@@ -87,4 +113,24 @@ void Motherboard::setHeartbeatLedState(boolean state)
 void Motherboard::setAutoRestartFlg(boolean state)
     {
     _autoRestartFlg = state;
+    }
+
+void Motherboard::setSmosSrrUdpPort(int val)
+    {
+    _smosSrrUdpPort = val;
+    }
+
+void Motherboard::setSmosSrrTimeout(int val)
+    {
+    _smosSrrTimeout = val;
+    }
+
+void Motherboard::setSmosSrrSerial(int val)
+    {
+    _smosSrrSerial = val;
+    }
+
+void Motherboard::setSmosSrrSlot(int val)
+    {
+    _smosSrrSlot = val;
     }

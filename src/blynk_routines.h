@@ -182,5 +182,10 @@ BLYNK_WRITE(V12)
     mbB.setAutoRestartFlg(state);
     }
 
+// a Numeric Input widget in the app on (V30) calls this function when its state changes
+// the widget will update the smosSrrUdpPort variable
+BLYNK_WRITE(V30)
+    {
 
+    }
 #endif /* BLYNK_ROUTINES_H */
