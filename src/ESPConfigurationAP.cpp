@@ -21,7 +21,6 @@
 #include <Arduino.h>
 #include "WiFiManager.h"                                                                           // https://github.com/tzapu/WiFiManager
 #include "ArduinoJson.h"                                                                           // https://github.com/bblanchon/ArduinoJson NB must be v5
-//#include "auxiliary.h"
 #include "ESPConfigurationAP.h"
 
 //extern PCF8574 pcfP;

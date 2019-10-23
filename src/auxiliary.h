@@ -4,7 +4,7 @@
 #define AUXILIARY_H
 
     #include <Arduino.h>
-    #include <PCF8574.h>                                                                           // https://github.com/RobTillaart/Arduino/tree/master/libraries/PCF8574
+    #include "PCF8574.h"                                                                           // https://github.com/RobTillaart/Arduino/tree/master/libraries/PCF8574
 
     extern PCF8574 pcfP;                                       // NB  the definition in auxiliary.cpp is 'PCF8574 pcfP(0x38)' but the extern declaration here shouldn't include (0x38) !!
 
