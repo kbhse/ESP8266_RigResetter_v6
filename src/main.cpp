@@ -17,6 +17,8 @@
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
 #include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
+#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
+#include <WidgetRTC.h>
 
 // NB remove credentials when WiFi Manager enabled !!
 const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
@@ -26,10 +28,18 @@ char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                               
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
+WidgetRTC rtc;
+
 SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
+
+BLYNK_CONNECTED()
+    {
+    // Synchronize time on connection
+    rtc.begin();
+    }
 
 void setup()
     {
@@ -65,12 +75,35 @@ void setup()
 
     listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
     
-    Blynk.begin(auth, ssid, password);
+    //Blynk.begin(auth, ssid, password);
     //Blynk.connect();
+
+    Serial.println(F("connecting to Blynk server"));
+    Blynk.config(blynk_token);
+    while(Blynk.connect() != true) {};
+    rtc.begin();                                                                                   // after changing from SSL to basic I need this here to get first dateAndTime for terminal ! (it's also in BLYNK_CONNECTED() above)
 
     timer.setInterval(60000L, readSHT30Sensor);                                                    // every 60 seconds, send temp and humidity to blync server
     timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
     timer.setInterval(5000L, flashHeartbeats);                                                     // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the led in Blynk app
+
+    setSyncInterval(10 * 60);                                                                      // Time Sync interval in seconds (10 minutes)
+
+    Blynk.syncVirtual(V1, V5, V31);                                                                // kludge - but syncing a Vpin here means restart date/time is printed to terminal, else 01/01/1970
+                                                                                                   // just calling the function (with an unallocated Vpin) works
+                                                                                                   // but I need to sync V0 and V1 for logMBPowerLedStates(), so do it here
+                                                                                                   // and I need to sync V31 so smosSrrTimeout is updated in time for wd_timer_A
+
+    logStartup();                                                                                  // log startup info to terminal
+
+    logMBPowerLedStates();                                                                         // log motherboard Power LED states to terminal
+  
+    Blynk.syncAll();                                                                               // Blynk will sync virtual pins when changed in app but need this to initially sync values on startup
+                                                                                                   // The Blynk.syncAll() command restores all the Widget’s values based on the last saved values on the server. 
+                                                                                                   // All analog and digital pin states will be restored. Every Virtual Pin will perform BLYNK_WRITE event.
+                                                                                                   // You can also update a single Virtual Pin value by calling Blynk.syncVirtual(Vpin)
+                                                                                                   // or you can update several pins with Blynk.syncVirtual(V0, V1, V2, ...).
+                                                                                                   // the calls to BLYNK_WRITE from Blynk.syncAll() will log state of Fans and Aux Output to Terminal on startup
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A

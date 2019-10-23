@@ -254,7 +254,7 @@ void readSHT30Sensor()
 // this function will be called by a timer (timer.setInterval(5000L, flashHeartbeats)) in the setup() function.
 // it sends a message to the LED widget to turn ON and starts a timer to turn it OFF again.
 // it then resets the heartbeatFlag.
-// uses 2 instances of the WidgetLED object, WidgetLED heartbeatBlynkLedA(V3) and WidgetLED heartbeatBlynkLedB(V7) and their setValue() methods.
+// uses 2 instances of the WidgetLED object, WidgetLED heartbeatLedA(V3) and WidgetLED heartbeatLedB(V7) and their setValue() methods.
 void flashHeartbeats()                                                            				   // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the leds in Blynk app
   	{
   	if(mbA.getHeartbeatFlag() == true)															   // if the heartbeat flag for motherboard A is set
