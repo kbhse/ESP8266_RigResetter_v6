@@ -11,6 +11,8 @@
 
     //extern BlynkTimer timer;
     extern SimpleTimer timer;
+
+    extern Motherboard mb;
     extern Motherboard mbA;
     extern Motherboard mbB;
 

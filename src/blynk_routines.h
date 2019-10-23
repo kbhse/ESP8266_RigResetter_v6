@@ -13,6 +13,7 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 #include "motherboard.h"
 #include "auxiliary.h"
 
+Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
 Motherboard mbA;
 Motherboard mbB;
 
@@ -186,6 +187,18 @@ BLYNK_WRITE(V12)
 // the widget will update the smosSrrUdpPort variable
 BLYNK_WRITE(V30)
     {
-
+    int val = param.asInt;
+    mb.setSmosSrrUdpPort;
     }
+
+// a Numeric Input widget in the app on (V31) calls this function when its state changes
+// the widget will update the smosSrrTimeout variable
+BLYNK_WRITE(V31)
+    {
+    int val = param.asInt;
+    mb.setSmosSrrTimeout;
+    }
+
+
+
 #endif /* BLYNK_ROUTINES_H */

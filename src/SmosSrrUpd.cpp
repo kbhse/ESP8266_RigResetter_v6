@@ -35,9 +35,9 @@ void wdACallback()
 
 void listenForSmosUdpPackets()
   {
-  if(udp.listen(localUdpPort))
+  if(udp.listen(mb.getSmosSrrUdpPort()))
     {
-    Serial.printf("UDP Listening on IP: %s, Port: %d\n", WiFi.localIP().toString().c_str(), smosSrrUdpPort);
+    Serial.printf("UDP Listening on IP: %s, Port: %d\n", WiFi.localIP().toString().c_str(), mb.getSmosSrrUdpPort());
     
     udp.onPacket([](AsyncUDPPacket packet)                                                                      // CALLBACK FUNCTION
       {
@@ -75,12 +75,12 @@ void listenForSmosUdpPackets()
         //Serial.println(smosSrrSerial);
         //Serial.println(smosSrrSerial_A);
         //Serial.println(smosSrrSerial_B);
-        if(smosSrrSerial == smosSrrSerial_A)                                                            // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
+        if(smosSrrSerial == mbA.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
           {
           flashHeartbeatLedA();                                                                         // flash the heartbeat LED (pin 3 on MP PCF8574 is heartbeat A Led)
           timer.restartTimer(wd_timer_A_id);                                                            // restart the watchdog timer for motherboard A
           }
-        if(smosSrrSerial == smosSrrSerial_B)                                                            // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
+        if(smosSrrSerial == mbB.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
           {
           flashHeartbeatLedB();                                                                         // flash the heartbeat LED (pin 7 on MP PCF8574 is heartbeat B Led)
           }
