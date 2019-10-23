@@ -1,8 +1,7 @@
-/*  src/auxiliary.cpp */
+/* src/auxiliary.cpp */
 
 #include <Arduino.h>
 #include "auxiliary.h"
-//#include <PCF8574.h>                                                                               // https://github.com/RobTillaart/Arduino/tree/master/libraries/PCF8574
 
 PCF8574 pcfP(0x38);                                                                                // create instance of the PCF8574 class for the P device
 

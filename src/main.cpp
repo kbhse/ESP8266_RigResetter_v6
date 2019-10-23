@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.003"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.004"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -70,7 +70,7 @@ void setup()
 
 
 
-    long timeout = smosSrrTimeout * 60000;
+    long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                      // start the watchdog timer for motherboard A
 
     }// end of setup()
