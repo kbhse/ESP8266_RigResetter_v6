@@ -16,6 +16,7 @@
 #include "ESPConfigurationAP.h"
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
+#include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
 
 // NB remove credentials when WiFi Manager enabled !!
 const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
@@ -24,6 +25,8 @@ char auth[] = "9lRwox3I34LL9PADxu3CtNyMHdT4apsm";                               
 
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
+
+SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
@@ -67,10 +70,10 @@ void setup()
     Blynk.begin(auth, ssid, password);
     //Blynk.connect();
 
-
+    timer.setInterval(60000L, readSHT30Sensor);                                                    // every 60 seconds, send temp and humidity to blync server
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
-    wd_timer_A_id = timer.setInterval(timeout, wdACallback);                      // start the watchdog timer for motherboard A
+    wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
 
     }// end of setup()
 

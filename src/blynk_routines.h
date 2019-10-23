@@ -231,4 +231,21 @@ BLYNK_WRITE(V37)
 		mbB.setSmosSrrSlot(val);
 		}
 
+// this function will be called by a timer (timer.setInterval(60000L, readSHT30Sensor)) in the setup() function
+// data will be sent to V42 (temperature) and V43 (humidity) widgets in the app
+void readSHT30Sensor()
+  {                                                                  // function: reads SHT30 sensor and sends data to blynk app
+  sht30.get();                                                       // get data from sensor
+  Blynk.virtualWrite(V42, sht30.cTemp);                              // send temperature to app
+  Blynk.virtualWrite(V43, sht30.humidity);                           // send humidity to app
+  /*
+  terminal.print("Temperature: ");
+  terminal.print(sht30.cTemp);
+  terminal.print("c   Humidity: ");
+  terminal.print(sht30.humidity);
+  terminal.println("%");
+  terminal.flush();
+  */
+  }
+  
 #endif /* BLYNK_ROUTINES_H */
