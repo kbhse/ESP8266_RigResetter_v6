@@ -27,6 +27,8 @@ AuxOut pcbPowerLed;                                                             
 WidgetLED PowerLedA(V1);                                                                           // indicates state of motherboard A power led
 WidgetLED PowerLedB(V5);                                                                           // indicates state of motherboard B power led
 WidgetLED ConfigSwitchLed(V22);                                                                    // indicates state of pcb aux input P7 (CONFIG switch)
+WidgetLED heartbeatLedA(V3);                                                                             // 
+WidgetLED heartbeatLedB(V7);                                                                             // 
 
 void setPortPins()
 	{
@@ -234,18 +236,51 @@ BLYNK_WRITE(V37)
 // this function will be called by a timer (timer.setInterval(60000L, readSHT30Sensor)) in the setup() function
 // data will be sent to V42 (temperature) and V43 (humidity) widgets in the app
 void readSHT30Sensor()
-  {                                                                  // function: reads SHT30 sensor and sends data to blynk app
-  sht30.get();                                                       // get data from sensor
-  Blynk.virtualWrite(V42, sht30.cTemp);                              // send temperature to app
-  Blynk.virtualWrite(V43, sht30.humidity);                           // send humidity to app
-  /*
-  terminal.print("Temperature: ");
-  terminal.print(sht30.cTemp);
-  terminal.print("c   Humidity: ");
-  terminal.print(sht30.humidity);
-  terminal.println("%");
-  terminal.flush();
-  */
-  }
-  
+	{                                                                  // function: reads SHT30 sensor and sends data to blynk app
+	sht30.get();                                                       // get data from sensor
+  	Blynk.virtualWrite(V42, sht30.cTemp);                              // send temperature to app
+  	Blynk.virtualWrite(V43, sht30.humidity);                           // send humidity to app
+  	/*
+  	terminal.print("Temperature: ");
+  	terminal.print(sht30.cTemp);
+  	terminal.print("c   Humidity: ");
+  	terminal.print(sht30.humidity);
+  	terminal.println("%");
+  	terminal.flush();
+  	*/
+  	}
+
+// the (global) heartbeatFlags are set by the SMOS_SRR_UPD routine when valid keep-alive messages are received (approx every 2 seconds).
+// this function will be called by a timer (timer.setInterval(5000L, flashHeartbeats)) in the setup() function.
+// it sends a message to the LED widget to turn ON and starts a timer to turn it OFF again.
+// it then resets the heartbeatFlag.
+// uses 2 instances of the WidgetLED object, WidgetLED heartbeatBlynkLedA(V3) and WidgetLED heartbeatBlynkLedB(V7) and their setValue() methods.
+void flashHeartbeats()                                                            				   // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the leds in Blynk app
+  	{
+  	if(mbA.getHeartbeatFlag() == true)															   // if the heartbeat flag for motherboard A is set
+    	{
+    	heartbeatLedA.setValue(255);                                             		   	   	   // send ON state to Blynk heartbeat A LED (V3)
+    	timer.setTimeout(500, turnHeartbeatBlynkLedAOff);                             			   // Callback to turn LED back off after x mSeconds
+    	mbA.setHeartbeatFlag(false);                                                       		   // set flag Off 
+    	}
+  	if(mbB.getHeartbeatFlag() == true)															   // if the heartbeat flag for motherboard B is set
+    	{
+    	heartbeatLedB.setValue(255);                                             			   	   // send ON state to Blynk heartbeat B LED (V7)
+    	timer.setTimeout(500, turnHeartbeatBlynkLedBOff);                             			   // Callback to turn LED back off after x mSeconds
+    	mbB.setHeartbeatFlag(false);                                                       		   // set flag Off 
+    	}
+  	}
+
+// turn heartbeat LED widget A OFF 
+void turnHeartbeatBlynkLedAOff()
+  	{
+  	heartbeatLedA.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
+  	}
+
+// turn heartbeat LED widget B OFF   
+void turnHeartbeatBlynkLedBOff()
+  	{
+  	heartbeatLedB.setValue(35);                                                			   // send OFF state to Blynk heartbeat A LED (V3)
+  	}
+
 #endif /* BLYNK_ROUTINES_H */

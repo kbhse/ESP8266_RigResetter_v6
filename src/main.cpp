@@ -42,8 +42,6 @@ void setup()
 
     setPortPins();                                                                                 // set the PCF8574 port pins
 
-    timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
-
     auxOutP6.setAuxOutState(LOW);                                                                  // turn auxOutP6 (and associated pcb led) OFF
     pcbPowerLed.setAuxOutState(LOW);                                                               // turn OFF pcb 5V power led until system connected TO wIfI. active HIGH
 
@@ -71,6 +69,8 @@ void setup()
     //Blynk.connect();
 
     timer.setInterval(60000L, readSHT30Sensor);                                                    // every 60 seconds, send temp and humidity to blync server
+    timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
+    timer.setInterval(5000L, flashHeartbeats);                                                     // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the led in Blynk app
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
