@@ -16,8 +16,6 @@ void listenForSmosUdpPackets()
     {
     #ifdef DEBUG_OUT
         Serial.println(F("listening for SMOS SRR watchdog keep alive UDP packets"));
-        Serial.print("Port: ");
-        Serial.println(mb.getSmosSrrUdpPort());
     #endif
     if(udp.listen(mb.getSmosSrrUdpPort()))
     //if(udp.listen(1051))
