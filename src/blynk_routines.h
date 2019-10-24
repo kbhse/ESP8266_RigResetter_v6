@@ -521,7 +521,7 @@ void wdACallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Reset MB A..."));
+      terminal.print(F(" Auto-Resetting MB A"));
       terminal.flush();
     #endif
     // code to reset motherboard A
@@ -544,7 +544,7 @@ void wdBCallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Reset MB B..."));
+      terminal.print(F(" Auto-Resetting MB B"));
       terminal.flush();
     #endif
     // code to reset motherboard A
