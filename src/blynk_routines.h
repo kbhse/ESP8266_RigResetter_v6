@@ -412,7 +412,7 @@ void terminalCommands()
   terminal.println(F("env - log temperature and humidity"));
   terminal.println(F("net - log SSID and IP"));
   terminal.println(F("rst - Restart the ESP8266"));
-  terminal.println(F("?   - print this list"));
+  terminal.println(F("?   - help"));
   }
 
 // Blynk Terminal
