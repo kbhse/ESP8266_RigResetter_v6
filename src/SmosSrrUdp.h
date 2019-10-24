@@ -16,7 +16,7 @@
 
     extern PCF8574 pcfMP;                                       // NB  the definition in auxiliary.cpp is 'PCF8574 pcfP(0x38)' but the extern declaration here shouldn't include (0x38) !!
 
-    void wdACallback();
+    //void wdACallback();
     void listenForSmosUdpPackets();
     void turnLedAOff();
     void turnLedBOff();

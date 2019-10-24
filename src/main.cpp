@@ -109,7 +109,7 @@ void setup()
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
-    wd_timer_B_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard B
+    wd_timer_B_id = timer.setInterval(timeout, wdBCallback);                                       // start the watchdog timer for motherboard B
     
     listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
 
