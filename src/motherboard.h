@@ -19,6 +19,7 @@
 
             boolean _powerSwitchState;
             boolean _powerLedState;
+            boolean _powerLedLastState;                                                            // used to only print Terminal message when state has changed (ie not on each timer call)
             boolean _resetSwitchState;
             boolean _heartbeatLedState;
             boolean _autoRestartFlag;
@@ -43,6 +44,7 @@
 
             boolean getPowerSwitchState();
             boolean getPowerLedState();
+            boolean getPowerLedLastState();
             boolean getResetSwitchState();
             boolean getheartbeatLedState();
             boolean getAutoRestartFlag();
@@ -62,6 +64,7 @@
             void setHeartbeatLedPin(int pin);
 
             void setPowerSwitchState(boolean state);
+            void setPowerLedLastState(boolean state);
             void setResetSwitchState(boolean state);
             void setHeartbeatLedState(boolean state);
             void setAutoRestartFlag(boolean state);

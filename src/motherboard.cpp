@@ -41,6 +41,8 @@ boolean Motherboard::getPowerLedState()
     return _powerLedState;
     }
 
+boolean Motherboard::getPowerLedLastState() {return _powerLedLastState;}
+
 boolean Motherboard::getResetSwitchState() {return _resetSwitchState;}
 
 boolean Motherboard::getheartbeatLedState() {return _heartbeatLedState;}
@@ -68,11 +70,14 @@ void Motherboard::setResetSwitchPin(int pin) {_resetSwitchPin = pin;}
 
 void Motherboard::setHeartbeatLedPin(int pin) {_heartbeatLedPin = pin;}
 
+
 void Motherboard::setPowerSwitchState(boolean state)
     {
     _powerSwitchState = state;
     pcfMP.write(_powerSwitchPin, !_powerSwitchState);                                              // active LOW
     }
+
+void Motherboard::setPowerLedLastState(boolean state) {_powerLedLastState = state;}
 
 void Motherboard::setResetSwitchState(boolean state)
     {

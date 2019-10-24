@@ -96,7 +96,7 @@ void setup()
 
     logStartup();                                                                                  // log startup info to terminal
 
-    logMBPowerLedStates();                                                                         // log motherboard Power LED states to terminal
+    logMBPowerLedStates();                                                                         // log motherboard Power LED states to terminal on startup
   
     Blynk.syncAll();                                                                               // Blynk will sync virtual pins when changed in app but need this to initially sync values on startup
                                                                                                    // The Blynk.syncAll() command restores all the Widget’s values based on the last saved values on the server. 

@@ -62,16 +62,13 @@ void setPortPins()
 	pcbPowerLed.setActiveHIGH(true);
 	}
 
-
-void getPcbInputs()
-// read the state of the pcb inputs and send to Blynk app WidgetLEDs
-// called by timer (timer.setInterval(500L, getPcbInputs)) in setup()
+// get state of motherboard A power led and send to WidgetLED PowerLedA
+// called (via timer) by getPcbInputs()
+// if the state has changed print to Blynk Terminal (ie don't print every time timer calls it)
+void getPowerLedAState()
 	{
-	boolean stateA = mbA.getPowerLedState();
-	boolean stateB = mbB.getPowerLedState();
-	boolean stateAuxIn = auxInP7.getAuxInState();
-
-	if(stateA)
+	boolean state = mbA.getPowerLedState();
+	if(state)
 		{
 		PowerLedA.setValue(255);
 		}
@@ -79,8 +76,29 @@ void getPcbInputs()
 		{
 		PowerLedA.setValue(35);  
 		}
+	if(mbA.getPowerLedLastState() != state)
+    	{
+    	#ifdef DEBUG_OUT
+      		Serial.print(F("Motherboard A Power LED: "));
+      		Serial.println(state ? "On" : "Off");
+    	#endif
+    	#ifdef TERMINAL_OUT
+      		terminal.print(dateAndTime());
+      		terminal.print(F(" MB A Power Led "));
+      		terminal.println(state ? "On" : "Off");
+      		terminal.flush();
+    	#endif
+    	mbA.setPowerLedLastState(state);
+    	}
+	}
 
-	if(stateB)
+// get state of motherboard B power led and send to WidgetLED PowerLedAConfigSwitchLed
+// called (via timer) by getPcbInputs()
+// if the state has changed print to Blynk Terminal (ie don't print every time timer calls it)
+void getPowerLedBState()
+	{
+	boolean state = mbB.getPowerLedState();
+	if(state)
 		{
 		PowerLedB.setValue(255);
 		}
@@ -88,17 +106,75 @@ void getPcbInputs()
 		{
 		PowerLedB.setValue(35);  
 		}
+	if(mbB.getPowerLedLastState() != state)
+    	{
+    	#ifdef DEBUG_OUT
+      		Serial.print(F("Motherboard B Power LED: "));
+      		Serial.println(state ? "On" : "Off");
+    	#endif
+    	#ifdef TERMINAL_OUT
+      		terminal.print(dateAndTime());
+      		terminal.print(F(" MB B Power Led "));
+      		terminal.println(state ? "On" : "Off");
+      		terminal.flush();
+    	#endif
+    	mbA.setPowerLedLastState(state);
+    	}
+	}
 
-	if(stateAuxIn)
+// get state of Aux Input P7 and send to WidgetLED ConfigSwitchLed
+// called (via timer) by getPcbInputs()
+void getAuxInputState()
+	{
+	boolean state = auxInP7.getAuxInState();
+	if(state)
 		{
 		ConfigSwitchLed.setValue(255);
 		}
 	else
 		{
-		ConfigSwitchLed.setValue(35);
+		ConfigSwitchLed.setValue(35);  
 		}
 	}
-	
+
+void getPcbInputs()
+// read the state of the pcb inputs
+// called by timer (timer.setInterval(500L, getPcbInputs)) in setup()
+	{
+	getPowerLedAState();
+	getPowerLedBState();
+	getAuxInputState();
+	}
+
+// this is used to get the last state of the motherboard A power LED from Blynk on startup when Blynk.syncAll() is called
+// used to only print Terminal message when state has changed (ie not on each timer call)
+BLYNK_WRITE(V1)
+  {
+  if(param.asInt() == 255)
+    {
+    mbA.setPowerLedLastState(true);
+    }
+  else
+    {
+    mbA.setPowerLedLastState(false);
+    }
+  //mbA.setPowerLedLastState((param.asInt() == 255) ? true : false);
+  }
+
+// this is used to get the last state of the motherboard B power LED from Blynk on startup when Blynk.syncAll() is called
+// used to only print Terminal message when state has changed (ie not on each timer call)
+BLYNK_WRITE(V5)
+  {
+  if(param.asInt() == 255)
+    {
+    mbB.setPowerLedLastState(true);
+    }
+  else
+    {
+    mbB.setPowerLedLastState(false);
+    }
+  //mbB.setPowerLedLastState((param.asInt() == 255) ? true : false);
+  }
 
 // a button widget in the app on (V0) calls this function when its state changes
 // it controls motherboard A's soft power switch
@@ -412,8 +488,8 @@ void logStartup()
 // log the states of the Motherboard Power LEDs on startup
 void logMBPowerLedStates()
   {
-  bool stateA = !pcfMP.readButton(1);
-  bool stateB = !pcfMP.readButton(5);
+  bool stateA = !mbA.getPowerLedState();
+  bool stateB = !mbB.getPowerLedState();
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
     terminal.print(F(" MB A Power Led "));
