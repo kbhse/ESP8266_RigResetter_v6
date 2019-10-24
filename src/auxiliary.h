@@ -14,18 +14,21 @@
 
             int _auxOutPin;
             boolean _auxOutState;
+            boolean _activeHIGH;
             
         public:
 
             // Getters
 
             boolean getAuxOutState();
+            boolean getActiveHIGH();
 
             // Setters
 
             void setAuxOutPin(int pin);
 
             void setAuxOutState(boolean state);
+            void setActiveHIGH(boolean state);
 
         };
 

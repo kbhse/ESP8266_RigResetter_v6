@@ -12,10 +12,15 @@ boolean AuxOut::getAuxOutState()
     return _auxOutState;
     }
 
+boolean AuxOut::getActiveHIGH()
+    {
+    return _activeHIGH;
+    }
+
 boolean AuxIn::getAuxInState()
     {
     _auxInState = !pcfP.readButton(_auxInPin);
-        return _auxInState;
+    return _auxInState;
     }
 
 // Setters
@@ -28,7 +33,20 @@ void AuxOut::setAuxOutPin(int pin)
 void AuxOut::setAuxOutState(boolean state)
     {
     _auxOutState = state;
-    pcfP.write(_auxOutPin, !_auxOutState);                                                         // active LOW
+    if(_activeHIGH)
+        {
+        pcfP.write(_auxOutPin, _auxOutState);
+        }
+    else
+        {
+        pcfP.write(_auxOutPin, !_auxOutState);
+        }
+    
+    }
+
+void AuxOut::setActiveHIGH(boolean state)
+    {
+    _activeHIGH = state;
     }
 
 void AuxIn::setAuxInPin(int pin)

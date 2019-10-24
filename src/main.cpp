@@ -22,7 +22,7 @@
 
 // NB remove credentials when WiFi Manager enabled !!
 /*
-const char* ssid = "BTHub4-5H9P";                                                                  // WiFi credentials, SSID
+const char* ssid = "***********";                                                                  // WiFi credentials, SSID
 const char* password = "********************";                                                     // WiFi credentials, password
 char auth[] = "********************************";                                                  // Blynk app Auth Token (get from Project Settings (nut icon))
 */

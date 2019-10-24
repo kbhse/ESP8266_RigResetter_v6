@@ -52,10 +52,14 @@ void setPortPins()
 	mbB.setHeartbeatLedPin(7);
 	// set the pins of the PCF8574 P device
 	fan1.setAuxOutPin(4);                                                                            // Fan 1
+	fan1.setActiveHIGH(false);
 	fan2.setAuxOutPin(5);                                                                            // Fan 2
+	fan2.setActiveHIGH(false);
 	auxOutP6.setAuxOutPin(6);                                                                        // auxiliary output on PCF8574 P6
+	auxOutP6.setActiveHIGH(true);
 	auxInP7.setAuxInPin(7);                                                                          // auxiliary input on PCF8574 P7 (CONFIG switch)
 	pcbPowerLed.setAuxOutPin(3);                                                                     // the 5V pcb power led
+	pcbPowerLed.setActiveHIGH(true);
 	}
 
 
