@@ -86,7 +86,11 @@ void Motherboard::setResetSwitchState(boolean state)
     pcfMP.write(_resetSwitchPin, !_resetSwitchState);                                              // active LOW
     }
 
-void Motherboard::setHeartbeatLedState(boolean state) {_heartbeatLedState = state;}
+void Motherboard::setHeartbeatLedState(boolean state)
+    {
+    _heartbeatLedState = state;
+    pcfMP.write(_heartbeatLedPin, !_heartbeatLedState);                                            // active LOW
+    }
 
 void Motherboard::setAutoRestartFlag(boolean state) {_autoRestartFlag = state;}
 

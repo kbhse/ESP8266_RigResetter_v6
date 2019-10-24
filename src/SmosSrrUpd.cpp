@@ -5,9 +5,12 @@
 #include "ESPAsyncUDP.h"                                                                           // https://github.com/me-no-dev/ESPAsyncUDP
 #include "defines.h"
 
+extern SimpleTimer timer;
+extern void testjmm2();
+extern void flashHeartbeatLedA();
+extern void flashHeartbeatLedB();
 
 AsyncUDP udp;                                                                                      // create instance of AsyncUPD object
-
 
 //-----------------------------------------------------------
 // (approx every 2 seconds)
@@ -58,14 +61,14 @@ void listenForSmosUdpPackets()
                 //Serial.println(smosSrrSerial);
                 //Serial.println(smosSrrSerial_A);
                 //Serial.println(smosSrrSerial_B);
-                if(smosSrrSerial == mbA.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
+                if(smosSrrSerial == mbA.getSmosSrrSerial())                                        // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
                     {
-                    flashHeartbeatLedA();                                                                         // flash the heartbeat LED (pin 3 on MP PCF8574 is heartbeat A Led)
-                    timer.restartTimer(wd_timer_A_id);                                                            // restart the watchdog timer for motherboard A
+                    flashHeartbeatLedA();                                                          // flash the PCB heartbeat LED A and restart the watchdog timer (function in blynk_routines.h)
+                    //timer.restartTimer(wd_timer_A_id);                                           // restart the watchdog timer for motherboard A
                     }
-                if(smosSrrSerial == mbB.getSmosSrrSerial())                                                            // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
+                if(smosSrrSerial == mbB.getSmosSrrSerial())                                        // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
                     {
-                    flashHeartbeatLedB();                                                                         // flash the heartbeat LED (pin 7 on MP PCF8574 is heartbeat B Led)
+                    flashHeartbeatLedB();                                                          // flash the PCB heartbeat LED B and restart the watchdog timer (function in blynk_routines.h)
                     }
                 }
       
@@ -75,37 +78,6 @@ void listenForSmosUdpPackets()
             }); // end of callback function
         }
     } // end of listenForSmosUdpPackets
-
-//-----------------------------------------------------------
-void flashHeartbeatLedA()
-    {
-    pcfMP.write(3, LOW);                                                                                  // turn motherboard A heartbeat pcb LED ON (LOW is ON)
-    mbA.setHeartbeatFlag(true);                                                                           // set heartbeatFlag for motherboard A
-    //heartbeatA.setValue(255);                                                                           // send ON state to Blynk heartbeat A LED (V3)
-    timer.setTimeout(150, turnLedAOff);                                                                   // Callback to turn LED back off after x mSeconds
-    }
-
-//-----------------------------------------------------------
-void turnLedAOff()
-    {
-    pcfMP.write(3, HIGH);                                                                                 // turn motherboard A heartbeat pcb LED ON (HIGH is OFF)
-    //heartbeatA.setValue(35);                                                                            // send OFF state to Blynk heartbeat A LED (V3)
-    }
-
-//-----------------------------------------------------------
-void flashHeartbeatLedB()
-    {
-    pcfMP.write(7, LOW);                                                                                   // turn motherboard heartbeat LED ON
-    mbB.setHeartbeatFlag(true);                                                                            // set heartbeatFlag for motherboard B
-    timer.setTimeout(150, turnLedBOff);                                                                    // Callback to turn LED back off after x mSeconds
-    }
-
-//-----------------------------------------------------------
-void turnLedBOff()
-    {
-    pcfMP.write(7, HIGH);                                                                                   // HIGH is OFF
-    }
-
 
 //-----------------------------------------------------------
 int translateSmosSrrByte(int x)

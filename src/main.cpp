@@ -18,6 +18,7 @@
 #include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
 #include <WidgetRTC.h>
 
+
 // NB remove credentials when WiFi Manager enabled !!
 /*
 const char* ssid = "***********";                                                                  // WiFi credentials, SSID
@@ -38,6 +39,8 @@ BLYNK_CONNECTED()
     // Synchronize time on connection
     rtc.begin();
     }
+
+
 
 void setup()
     {
@@ -83,6 +86,8 @@ void setup()
     timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
     timer.setInterval(5000L, flashHeartbeats);                                                     // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the led in Blynk app
 
+
+
     setSyncInterval(10 * 60);                                                                      // Time Sync interval in seconds (10 minutes)
 
     Blynk.syncVirtual(V1, V5, V30, V31);                                                                // kludge - but syncing a Vpin here means restart date/time is printed to terminal, else 01/01/1970
@@ -104,6 +109,7 @@ void setup()
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
+    wd_timer_B_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard B
     
     listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
 

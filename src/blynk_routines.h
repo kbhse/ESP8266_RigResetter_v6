@@ -17,6 +17,8 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 #include "defines.h"
 
 extern SimpleTimer timer;
+extern int wd_timer_A_id;                                                                                   // ids of watchdog timers
+extern int wd_timer_B_id;
 
 Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
 Motherboard mbA;
@@ -32,11 +34,12 @@ AuxOut pcbPowerLed;                                                             
 WidgetLED PowerLedA(V1);                                                                           // indicates state of motherboard A power led
 WidgetLED PowerLedB(V5);                                                                           // indicates state of motherboard B power led
 WidgetLED ConfigSwitchLed(V22);                                                                    // indicates state of pcb aux input P7 (CONFIG switch)
-WidgetLED heartbeatLedA(V3);                                                                             // 
-WidgetLED heartbeatLedB(V7);                                                                             // 
+WidgetLED heartbeatLedA(V3);                                                                       // 
+WidgetLED heartbeatLedB(V7);                                                                       // 
 
 WidgetTerminal terminal(V10);
 SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
+
 
 void setPortPins()
 	{
@@ -524,5 +527,39 @@ void wdACallback()
     // code to reset motherboard A
     }
   }
+
+//-----------------------------------------------------------
+void turnLedAOff()
+    {
+    mbA.setHeartbeatLedState(false);                                                               // turn motherboard A heartbeat pcb LED OFF
+    //heartbeatA.setValue(35);                                                                     // send OFF state to Blynk heartbeat A LED (V3)
+    }
+
+void flashHeartbeatLedA()
+    {
+    mbA.setHeartbeatLedState(true);                                                                // turn motherboard A heartbeat pcb LED ON
+	timer.restartTimer(wd_timer_A_id);                                                             // restart the watchdog timer for motherboard A
+    mbA.setHeartbeatFlag(true);                                                                    // set heartbeatFlag for motherboard A
+    //heartbeatA.setValue(255);                                                                    // send ON state to Blynk heartbeat A LED (V3)
+    timer.setTimeout(150, turnLedAOff);                                                            // Callback to turn LED back off after x mSeconds
+    }
+
+//-----------------------------------------------------------
+void turnLedBOff()
+    {
+    mbB.setHeartbeatLedState(false);                                                               // turn motherboard B heartbeat pcb LED OFF
+    }
+
+//-----------------------------------------------------------
+void flashHeartbeatLedB()
+    {
+    mbB.setHeartbeatLedState(true);                                                                // turn motherboard B heartbeat pcb LED ON
+	timer.restartTimer(wd_timer_B_id);                                                             // restart the watchdog timer for motherboard B
+    mbB.setHeartbeatFlag(true);                                                                    // set heartbeatFlag for motherboard B
+    timer.setTimeout(150, turnLedBOff);                                                            // Callback to turn LED back off after x mSeconds
+    }
+
+//-----------------------------------------------------------
+
 
 #endif /* BLYNK_ROUTINES_H */
