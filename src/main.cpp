@@ -71,8 +71,6 @@ void setup()
 
     pcbPowerLed.setAuxOutState(HIGH);                                                              // connected to WiFi network, turn ON pcb 5V power led
 
-    //listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
-    
     //Blynk.begin(auth, ssid, password);
     //Blynk.connect();
 
@@ -106,8 +104,6 @@ void setup()
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
-
-    //delay(1000);
     
     listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
 
