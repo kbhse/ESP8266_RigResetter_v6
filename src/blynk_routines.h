@@ -197,7 +197,17 @@ BLYNK_WRITE(V16)
 BLYNK_WRITE(V19)
 	{
 	int state = param.asInt();
-	auxOutP6.setAuxOutState(state);                                                                  // active HIGH
+	auxOutP6.setAuxOutState(state);
+	#ifdef DEBUG_OUT
+    	Serial.print(F("Aux Output: "));
+    	Serial.println(auxOutP6.getAuxOutState());
+  	#endif
+  	#ifdef TERMINAL_OUT
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" Aux Output "));
+    	terminal.println(auxOutP6.getAuxOutState() ? "On" : "Off");
+    	terminal.flush();
+  	#endif
 	}
 
 // a button widget in the app on (V11) calls this function when its state changes
