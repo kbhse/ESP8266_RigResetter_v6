@@ -488,8 +488,8 @@ void logStartup()
 // log the states of the Motherboard Power LEDs on startup
 void logMBPowerLedStates()
   {
-  bool stateA = !mbA.getPowerLedState();
-  bool stateB = !mbB.getPowerLedState();
+  bool stateA = mbA.getPowerLedState();
+  bool stateB = mbB.getPowerLedState();
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
     terminal.print(F(" MB A Power Led "));
