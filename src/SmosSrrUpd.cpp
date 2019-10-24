@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include "SmosSrrUdp.h"
 #include "ESPAsyncUDP.h"                                                                           // https://github.com/me-no-dev/ESPAsyncUDP
+#include "defines.h"
+
 
 AsyncUDP udp;                                                                                      // create instance of AsyncUPD object
 
@@ -14,9 +16,9 @@ void wdACallback()
 
   {
   #ifdef TERMINAL_OUT
-   terminal.print(dateAndTime());
-   terminal.print(F(" MB A watchdog timeout!"));
-   terminal.flush();
+    terminal.print(dateAndTime());
+    terminal.print(F(" MB A watchdog timeout!"));
+    terminal.flush();
   #endif
   if(mbA.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
@@ -41,8 +43,8 @@ void listenForSmosUdpPackets()
     if(udp.listen(mb.getSmosSrrUdpPort()))
         {
         Serial.printf("UDP Listening on IP: %s, Port: %d\n", WiFi.localIP().toString().c_str(), mb.getSmosSrrUdpPort());
-    
-        udp.onPacket([](AsyncUDPPacket packet)                                                                      // CALLBACK FUNCTION
+        // CALLBACK FUNCTION
+        udp.onPacket([](AsyncUDPPacket packet)                      
             {
         
             #ifdef DEBUG_OUT_UDP

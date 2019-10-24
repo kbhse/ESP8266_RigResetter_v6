@@ -1,14 +1,11 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.007"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.008"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
 #define CREATION_DATE "October 2019"                                                               // date
-
-#define DEBUG_OUT                                                                                  // debug to serial monitor
-#define TERMINAL_OUT
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
@@ -18,6 +15,7 @@
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
 #include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
+#include "defines.h"
 #include <WidgetRTC.h>
 
 // NB remove credentials when WiFi Manager enabled !!

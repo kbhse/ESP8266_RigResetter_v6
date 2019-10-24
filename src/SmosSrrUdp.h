@@ -21,17 +21,11 @@
     extern int wd_timer_B_id;
 
     void wdACallback();
-
     void listenForSmosUdpPackets();
-
     void flashHeartbeatLedA();
-
     void turnLedAOff();
-
     void flashHeartbeatLedB();
-
     void turnLedBOff();
-
     int translateSmosSrrByte(int x);
 
 #endif // SmosSrrUdp_H

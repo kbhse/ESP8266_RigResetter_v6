@@ -10,13 +10,9 @@
     extern boolean shouldSaveConfig;
 
     void readParamsFromFSJson(boolean configSwitchFlag);
-
     void saveConfigCallback();
-
     void wiFiManagerDo();
-
     void connectToLastUsedAccessPoint();
-
     void statusLED(int flashes, String message);
 
 #endif /* ESPConfigurationAP_H */

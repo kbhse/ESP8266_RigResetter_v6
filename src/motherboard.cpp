@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "motherboard.h"
 #include "PCF8574.h"                                                                               // https://github.com/RobTillaart/Arduino/tree/master/libraries/PCF8574
+#include "defines.h"
 
 /*
     bool _powerLedState;

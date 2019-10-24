@@ -14,6 +14,7 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 #include "auxiliary.h"
 #include "TimeRoutines.h"
 #include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
+#include "defines.h"
 
 extern SimpleTimer timer;
 

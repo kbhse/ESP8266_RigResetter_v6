@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include "auxiliary.h"
+#include "defines.h"
 
 PCF8574 pcfP(0x38);                                                                                // create instance of the PCF8574 class for the P device
 

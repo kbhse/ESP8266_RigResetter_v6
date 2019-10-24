@@ -26,7 +26,6 @@
             // Setters
 
             void setAuxOutPin(int pin);
-
             void setAuxOutState(boolean state);
             void setActiveHIGH(boolean state);
 
