@@ -118,7 +118,7 @@ void getPowerLedBState()
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
-    	mbA.setPowerLedLastState(state);
+    	mbB.setPowerLedLastState(state);
     	}
 	}
 
