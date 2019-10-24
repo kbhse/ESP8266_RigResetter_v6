@@ -1,13 +1,14 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.008"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.009"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
 #define CREATION_DATE "October 2019"                                                               // date
 
 #include <Arduino.h>
+#include "defines.h"
 #include <ESP8266WiFi.h>
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
@@ -15,7 +16,6 @@
 #include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
 #include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
-#include "defines.h"
 #include <WidgetRTC.h>
 
 // NB remove credentials when WiFi Manager enabled !!
@@ -71,7 +71,7 @@ void setup()
 
     pcbPowerLed.setAuxOutState(HIGH);                                                              // connected to WiFi network, turn ON pcb 5V power led
 
-    listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
+    //listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
     
     //Blynk.begin(auth, ssid, password);
     //Blynk.connect();
@@ -87,10 +87,11 @@ void setup()
 
     setSyncInterval(10 * 60);                                                                      // Time Sync interval in seconds (10 minutes)
 
-    Blynk.syncVirtual(V1, V5, V31);                                                                // kludge - but syncing a Vpin here means restart date/time is printed to terminal, else 01/01/1970
+    Blynk.syncVirtual(V1, V5, V30, V31);                                                                // kludge - but syncing a Vpin here means restart date/time is printed to terminal, else 01/01/1970
                                                                                                    // just calling the function (with an unallocated Vpin) works
                                                                                                    // but I need to sync V0 and V1 for logMBPowerLedStates(), so do it here
                                                                                                    // and I need to sync V31 so smosSrrTimeout is updated in time for wd_timer_A
+                                                                                                   // and V30 to get smosSrrUdpPort before listenForSmosUdpPackets() called
 
     logStartup();                                                                                  // log startup info to terminal
 
@@ -105,6 +106,10 @@ void setup()
 
     long timeout = mb.getSmosSrrTimeout() * 60000;
     wd_timer_A_id = timer.setInterval(timeout, wdACallback);                                       // start the watchdog timer for motherboard A
+
+    //delay(1000);
+    
+    listenForSmosUdpPackets();                                                                     // start callback function that listens for UPD broadcast packets from SMOS SRR watchdogs
 
     }// end of setup()
 

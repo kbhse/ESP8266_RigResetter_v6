@@ -502,4 +502,27 @@ void logMBPowerLedStates()
   #endif
   }
 
+  //--------------------------------- Watchdog callback for motherboard A ----------------------------------------------------------- --------------------------
+void wdACallback()
+
+// alert user or perform action to restore
+// program state (e.g. reset the microprocessor)
+
+  {
+  #ifdef TERMINAL_OUT
+    terminal.print(dateAndTime());
+    terminal.print(F(" MB A watchdog timeout!"));
+    terminal.flush();
+  #endif
+  if(mbA.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
+    {
+    #ifdef TERMINAL_OUT
+      terminal.print(dateAndTime());
+      terminal.print(F(" Auto-Reset MB A..."));
+      terminal.flush();
+    #endif
+    // code to reset motherboard A
+    }
+  }
+
 #endif /* BLYNK_ROUTINES_H */
