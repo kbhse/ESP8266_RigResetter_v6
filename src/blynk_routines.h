@@ -526,14 +526,14 @@ void wdACallback()
   {
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.print(F(" MB A watchdog timeout!"));
+    terminal.println(F(" MB A watchdog timeout!"));
     terminal.flush();
   #endif
   if(mbA.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Restart MB A"));
+      terminal.println(F(" Auto-Restart MB A"));
       terminal.flush();
     #endif
     // code to reset motherboard A
@@ -549,14 +549,14 @@ void wdBCallback()
   {
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.print(F(" MB B watchdog timeout!"));
+    terminal.println(F(" MB B watchdog timeout!"));
     terminal.flush();
   #endif
   if(mbB.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Restart MB B"));
+      terminal.println(F(" Auto-Restart MB B"));
       terminal.flush();
     #endif
     // code to reset motherboard A
