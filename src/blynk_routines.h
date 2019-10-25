@@ -296,6 +296,12 @@ BLYNK_WRITE(V11)
 		{
 		boolean state = param.asInt();
 		mbA.setAutoRestartFlag(state);
+		#ifdef TERMINAL_OUT
+    		terminal.print(dateAndTime());
+    		terminal.print(F(" Auto-Reset MB A "));
+    		terminal.println(mbA.getAutoRestartFlag() ? "On" : "Off");
+    		terminal.flush();
+  		#endif
 		}
 
 // a button widget in the app on (V12) calls this function when its state changes
@@ -304,6 +310,12 @@ BLYNK_WRITE(V12)
 		{
 		boolean state = param.asInt();
 		mbB.setAutoRestartFlag(state);
+		#ifdef TERMINAL_OUT
+    		terminal.print(dateAndTime());
+    		terminal.print(F(" Auto-Reset MB B "));
+    		terminal.println(mbB.getAutoRestartFlag() ? "On" : "Off");
+    		terminal.flush();
+  		#endif
 		}
 
 // a Numeric Input widget in the app on (V30) calls this function when its state changes
@@ -521,7 +533,7 @@ void wdACallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Resetting MB A"));
+      terminal.print(F(" Auto-Reset MB A..."));
       terminal.flush();
     #endif
     // code to reset motherboard A
@@ -544,7 +556,7 @@ void wdBCallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.print(F(" Auto-Resetting MB B"));
+      terminal.print(F(" Auto-Reset MB B..."));
       terminal.flush();
     #endif
     // code to reset motherboard A
