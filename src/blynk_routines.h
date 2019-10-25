@@ -88,7 +88,7 @@ void getPowerLedAState()
     	#endif
     	#ifdef TERMINAL_OUT
       		terminal.print(dateAndTime());
-      		terminal.print(F(" MB A Power Led: "));
+      		terminal.print(F(" Rig A Power Led: "));
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
@@ -118,7 +118,7 @@ void getPowerLedBState()
     	#endif
     	#ifdef TERMINAL_OUT
       		terminal.print(dateAndTime());
-      		terminal.print(F(" MB B Power Led: "));
+      		terminal.print(F(" Rig B Power Led: "));
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
@@ -298,7 +298,7 @@ BLYNK_WRITE(V11)
 		mbA.setAutoRestartFlag(state);
 		#ifdef TERMINAL_OUT
     		terminal.print(dateAndTime());
-    		terminal.print(F(" Auto-Restart A: "));
+    		terminal.print(F(" Auto-Restart Rig A: "));
     		terminal.println(mbA.getAutoRestartFlag() ? "On" : "Off");
     		terminal.flush();
   		#endif
@@ -312,7 +312,7 @@ BLYNK_WRITE(V12)
 		mbB.setAutoRestartFlag(state);
 		#ifdef TERMINAL_OUT
     		terminal.print(dateAndTime());
-    		terminal.print(F(" Auto-Restart B: "));
+    		terminal.print(F(" Auto-Restart Rig B: "));
     		terminal.println(mbB.getAutoRestartFlag() ? "On" : "Off");
     		terminal.flush();
   		#endif
@@ -508,10 +508,10 @@ void logMBPowerLedStates()
   bool stateB = mbB.getPowerLedState();
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.print(F(" MB A Power Led: "));
+    terminal.print(F(" Rig A Power Led: "));
     terminal.println(stateA ? "On" : "Off");
     terminal.print(dateAndTime());
-    terminal.print(F(" MB B Power Led: "));
+    terminal.print(F(" Rig B Power Led: "));
     terminal.println(stateB ? "On" : "Off");
     terminal.flush();
   #endif
@@ -526,14 +526,14 @@ void wdACallback()
   {
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.println(F(" MB A watchdog timeout!"));
+    terminal.println(F(" Rig A watchdog timeout!"));
     terminal.flush();
   #endif
   if(mbA.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.println(F(" Auto-Restart MB A"));
+      terminal.println(F(" Auto-Restarting Rig A"));
       terminal.flush();
     #endif
     // code to reset motherboard A
@@ -549,14 +549,14 @@ void wdBCallback()
   {
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.println(F(" MB B watchdog timeout!"));
+    terminal.println(F(" Rig B watchdog timeout!"));
     terminal.flush();
   #endif
   if(mbB.getAutoRestartFlag())                                                                                 // if motherboard A auto-restart is selected
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.println(F(" Auto-Restart MB B"));
+      terminal.println(F(" Auto-Restarting Rig B"));
       terminal.flush();
     #endif
     // code to reset motherboard A
