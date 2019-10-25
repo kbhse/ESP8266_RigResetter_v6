@@ -16,6 +16,20 @@ void setPortPins();
 // calls: getPowerLedAState(), getPowerLedBState(), getAuxInputState()
 void getPcbInputs();
 
+// get state of motherboard A power led and send to WidgetLED PowerLedA
+// called (via timer) by getPcbInputs()
+// if the state has changed print to Blynk Terminal (ie don't print every time timer calls it)
+void getPowerLedAState();
+
+// get state of motherboard B power led and send to WidgetLED PowerLedAConfigSwitchLed
+// called (via timer) by getPcbInputs()
+// if the state has changed print to Blynk Terminal (ie don't print every time timer calls it)
+void getPowerLedBState();
+
+// get state of Aux Input P7 and send to WidgetLED ConfigSwitchLed
+// called (via timer) by getPcbInputs()
+void getAuxInputState();
+
 // reads the SHT30 sensor
 // called by a timer (timer.setInterval(60000L, readSHT30Sensor)) in the setup() function
 // data will be sent to V42 (temperature) and V43 (humidity) widgets in the app
@@ -28,22 +42,46 @@ void readSHT30Sensor();
 // uses 2 instances of the WidgetLED object, WidgetLED heartbeatLedA(V3) and WidgetLED heartbeatLedB(V7) and their setValue() methods.
 void flashHeartbeats();
 
+// turn heartbeat LED widget A OFF 
+void turnHeartbeatBlynkLedAOff();
+
+// turn heartbeat LED widget B OFF   
+void turnHeartbeatBlynkLedBOff();
+
 // log startup info to terminal
 void logStartup();
 
 // log the states of the Motherboard Power LEDs on startup
 void logMBPowerLedStates();
 
+// Watchdog callback for motherboard A
+// alert user or perform action to restore
+// program state (e.g. reset the microprocessor)
 void wdACallback();
 
+// Watchdog callback for motherboard B
+// alert user or perform action to restore
+// program state (e.g. reset the microprocessor)
 void wdBCallback();
 
+// turn motherboard A heartbeat pcb LED ON
+// timer Callback to turn LED back off after x mSeconds
+// restart the watchdog timer for motherboard A
+// set heartbeatFlag for motherboard A
 // called from SmosSrrUdp.cpp
 void flashHeartbeatLedA();
 
+// turn motherboard A heartbeat pcb LED OFF
+void turnLedAOff();
+
+// turn motherboard B heartbeat pcb LED ON
+// timer Callback to turn LED back off after x mSeconds
+// restart the watchdog timer for motherboard B
+// set heartbeatFlag for motherboard B
 // called from SmosSrrUdp.cpp
 void flashHeartbeatLedB();
 
-// 
+// turn motherboard B heartbeat pcb LED OFF
+void turnLedBOff();
 
 #endif // blynk_helpers_H
