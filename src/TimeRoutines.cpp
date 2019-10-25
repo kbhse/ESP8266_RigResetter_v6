@@ -15,7 +15,8 @@ String dateAndTime()                                                            
   String Year = getLeading(year());
   String Hour = getLeading(hour());
   String Minute = getLeading(minute());
-  String dateTime1 = Day + "/" + Month + "/" + Year + " " + Hour + ":" + Minute;
+  //String dateTime1 = Day + "/" + Month + "/" + Year + " " + Hour + ":" + Minute;
+  String dateTime1 = Day + "/" + Month + " " + Hour + ":" + Minute;
   Serial.print(F("Current date and time: "));
   Serial.println(dateTime1);
   //Serial.print(" ");

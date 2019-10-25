@@ -88,7 +88,7 @@ void getPowerLedAState()
     	#endif
     	#ifdef TERMINAL_OUT
       		terminal.print(dateAndTime());
-      		terminal.print(F(" MB A Power Led "));
+      		terminal.print(F(" MB A Power Led: "));
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
@@ -118,7 +118,7 @@ void getPowerLedBState()
     	#endif
     	#ifdef TERMINAL_OUT
       		terminal.print(dateAndTime());
-      		terminal.print(F(" MB B Power Led "));
+      		terminal.print(F(" MB B Power Led: "));
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
@@ -248,7 +248,7 @@ BLYNK_WRITE(V15)
   	#endif
   	#ifdef TERMINAL_OUT
     	terminal.print(dateAndTime());
-    	terminal.print(F(" Aux Fan 1  "));
+    	terminal.print(F(" Aux Fan 1:  "));
     	terminal.println(fan1.getAuxOutState() ? "On" : "Off");
     	terminal.flush();
   	#endif
@@ -266,7 +266,7 @@ BLYNK_WRITE(V16)
   	#endif
   	#ifdef TERMINAL_OUT
     	terminal.print(dateAndTime());
-    	terminal.print(F(" Aux Fan 2  "));
+    	terminal.print(F(" Aux Fan 2:  "));
     	terminal.println(fan2.getAuxOutState() ? "On" : "Off");
     	terminal.flush();
   	#endif
@@ -284,7 +284,7 @@ BLYNK_WRITE(V19)
   	#endif
   	#ifdef TERMINAL_OUT
     	terminal.print(dateAndTime());
-    	terminal.print(F(" Aux Output "));
+    	terminal.print(F(" Aux Output: "));
     	terminal.println(auxOutP6.getAuxOutState() ? "On" : "Off");
     	terminal.flush();
   	#endif
@@ -298,7 +298,7 @@ BLYNK_WRITE(V11)
 		mbA.setAutoRestartFlag(state);
 		#ifdef TERMINAL_OUT
     		terminal.print(dateAndTime());
-    		terminal.print(F(" Auto-Reset MB A "));
+    		terminal.print(F(" Auto-Restart A: "));
     		terminal.println(mbA.getAutoRestartFlag() ? "On" : "Off");
     		terminal.flush();
   		#endif
@@ -312,7 +312,7 @@ BLYNK_WRITE(V12)
 		mbB.setAutoRestartFlag(state);
 		#ifdef TERMINAL_OUT
     		terminal.print(dateAndTime());
-    		terminal.print(F(" Auto-Reset MB B "));
+    		terminal.print(F(" Auto-Restart B: "));
     		terminal.println(mbB.getAutoRestartFlag() ? "On" : "Off");
     		terminal.flush();
   		#endif
@@ -508,10 +508,10 @@ void logMBPowerLedStates()
   bool stateB = mbB.getPowerLedState();
   #ifdef TERMINAL_OUT
     terminal.print(dateAndTime());
-    terminal.print(F(" MB A Power Led "));
+    terminal.print(F(" MB A Power Led: "));
     terminal.println(stateA ? "On" : "Off");
     terminal.print(dateAndTime());
-    terminal.print(F(" MB B Power Led "));
+    terminal.print(F(" MB B Power Led: "));
     terminal.println(stateB ? "On" : "Off");
     terminal.flush();
   #endif
