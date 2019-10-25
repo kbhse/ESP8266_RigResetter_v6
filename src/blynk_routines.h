@@ -71,7 +71,9 @@ void setPortPins()
 // if the state has changed print to Blynk Terminal (ie don't print every time timer calls it)
 void getPowerLedAState()
 	{
+	// get the state
 	boolean state = mbA.getPowerLedState();
+	// update WidgetLED
 	if(state)
 		{
 		PowerLedA.setValue(255);
@@ -80,8 +82,10 @@ void getPowerLedAState()
 		{
 		PowerLedA.setValue(35);  
 		}
+	// if the state has changed
 	if(mbA.getPowerLedLastState() != state)
     	{
+		// log it
     	#ifdef DEBUG_OUT
       		Serial.print(F("Motherboard A Power LED: "));
       		Serial.println(state ? "On" : "Off");
@@ -92,6 +96,7 @@ void getPowerLedAState()
       		terminal.println(state ? "On" : "Off");
       		terminal.flush();
     	#endif
+		// update Last state
     	mbA.setPowerLedLastState(state);
     	}
 	}
