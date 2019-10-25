@@ -524,6 +524,7 @@ void logMBPowerLedStates()
   }
 
   //--------------------------------- Watchdog callback for motherboard A ----------------------------------------------------------- --------------------------
+
 void wdACallback()
 
 // alert user or perform action to restore
@@ -592,6 +593,7 @@ void turnLedBOff()
     }
 
 //-----------------------------------------------------------
+// called from SmosSrrUdp.cpp
 void flashHeartbeatLedB()
     {
     mbB.setHeartbeatLedState(true);                                                                // turn motherboard B heartbeat pcb LED ON

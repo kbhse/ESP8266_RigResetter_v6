@@ -34,5 +34,16 @@ void logStartup();
 // log the states of the Motherboard Power LEDs on startup
 void logMBPowerLedStates();
 
+void wdACallback();
+
+void wdBCallback();
+
+// called from SmosSrrUdp.cpp
+void flashHeartbeatLedA();
+
+// called from SmosSrrUdp.cpp
+void flashHeartbeatLedB();
+
+// 
 
 #endif // blynk_helpers_H
