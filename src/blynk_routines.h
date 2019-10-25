@@ -340,6 +340,12 @@ BLYNK_WRITE(V32)
 		{
 		int val = param.asInt();
 		mbA.setSmosSrrSerial(val);
+		#ifdef TERMINAL_OUT
+    		terminal.print(dateAndTime());
+    		terminal.print(F(" SRR Serial A set to: "));
+    		terminal.println(mbA.getSmosSrrSerial());
+    		terminal.flush();
+  		#endif
 		}
 
 // a Numeric Input widget in the app on (V33) calls this function when its state changes
@@ -533,7 +539,7 @@ void wdACallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.println(F(" Auto-Restarting Rig A"));
+      terminal.println(F(" Auto-Restarting Rig A.."));
       terminal.flush();
     #endif
     // code to reset motherboard A
@@ -556,7 +562,7 @@ void wdBCallback()
     {
     #ifdef TERMINAL_OUT
       terminal.print(dateAndTime());
-      terminal.println(F(" Auto-Restarting Rig B"));
+      terminal.println(F(" Auto-Restarting Rig B.."));
       terminal.flush();
     #endif
     // code to reset motherboard A

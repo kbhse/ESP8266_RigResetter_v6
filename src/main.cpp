@@ -10,6 +10,7 @@
 #include <Arduino.h>
 #include "defines.h"
 #include <ESP8266WiFi.h>
+//#include <BlynkSimpleEsp8266_SSL.h>                                                                          // Blynk SSL library
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"

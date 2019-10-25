@@ -22,6 +22,7 @@
             boolean _powerLedLastState;                                                            // used to only print Terminal message when state has changed (ie not on each timer call)
             boolean _resetSwitchState;
             boolean _heartbeatLedState;
+            boolean _heartbeatFlag;
             boolean _autoRestartFlag;
 
             int _smosSrrUdpPort;
@@ -29,7 +30,6 @@
             int _smosSrrSerial;
             int _smosSrrSlot;
 
-            boolean _heartbeatFlag;
     
         public:
 
@@ -47,14 +47,13 @@
             boolean getPowerLedLastState();
             boolean getResetSwitchState();
             boolean getheartbeatLedState();
+            boolean getHeartbeatFlag();
             boolean getAutoRestartFlag();
 
             int getSmosSrrUdpPort();
             int getSmosSrrTimeout();
             int getSmosSrrSerial();
             int getSmosSrrSlot();
-
-            boolean getHeartbeatFlag();
 
             // Setters
 
@@ -67,14 +66,13 @@
             void setPowerLedLastState(boolean state);
             void setResetSwitchState(boolean state);
             void setHeartbeatLedState(boolean state);
+            void setHeartbeatFlag(boolean state);
             void setAutoRestartFlag(boolean state);
 
             void setSmosSrrUdpPort(int val);
             void setSmosSrrTimeout(int val);
             void setSmosSrrSerial(int val);
             void setSmosSrrSlot(int val);
-
-            void setHeartbeatFlag(boolean state);
 
         };
 
