@@ -159,7 +159,7 @@ BLYNK_WRITE(V10)
     	terminal.print(F("IP address: "));
     	terminal.println(WiFi.localIP());
     	}
-    else if(String("clr") == param.asStr())
+	else if(String("clr") == param.asStr())
     	{
     	terminal.clear();                                                         				   // Clear the terminal content
     	}
@@ -264,6 +264,14 @@ BLYNK_WRITE(V30)
 	{
 	int val = param.asInt();
 	mb.setSmosSrrUdpPort(val);
+	/*
+	#ifdef TERMINAL_OUT_VERBOSE
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" SRR UDP Port set to: "));
+    	terminal.println(mb.getSmosSrrUdpPort());
+    	terminal.flush();
+  	#endif
+	  */
 	}
 
 // a Numeric Input widget in the app on (V31) calls this function when its state changes
@@ -272,6 +280,15 @@ BLYNK_WRITE(V31)
 	{
 	int val = param.asInt();
 	mb.setSmosSrrTimeout(val);
+	/*
+	#ifdef TERMINAL_OUT_VERBOSE
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" SRR Timeout set to: "));
+    	terminal.print(mb.getSmosSrrTimeout());
+		terminal.println(" mins");
+    	terminal.flush();
+  	#endif
+	  */
 	}
 
 // a Numeric Input widget in the app on (V32) calls this function when its state changes

@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.015"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.016"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -10,16 +10,14 @@
 #include <Arduino.h>
 #include "defines.h"
 //#include <ESP8266WiFi.h>
-//#include <BlynkSimpleEsp8266_SSL.h>                                                                // Blynk SSL library
+//#include <BlynkSimpleEsp8266_SSL.h>                                                                // Blynk SSL library - see issue #8
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"
 //#include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
 //#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
-//#include <WidgetRTC.h>
 #include "ports_pins.h"
-
 
 // NB remove credentials when WiFi Manager enabled !!
 /*
@@ -31,18 +29,8 @@ char auth[] = "********************************";                               
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
-//WidgetRTC rtc;
-
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
-/*
-BLYNK_CONNECTED()
-    {
-    // Synchronize time on connection
-    rtc.begin();
-    }
-*/
-
 
 void setup()
     {
@@ -87,8 +75,6 @@ void setup()
     timer.setInterval(60000L, readSHT30Sensor);                                                    // every 60 seconds, send temp and humidity to blync server
     timer.setInterval(500L, getPcbInputs);                                                         // timer to poll the pcb inputs states
     timer.setInterval(5000L, flashHeartbeats);                                                     // if heartbeat flags have been reset by SMOS SRR Watchdog UPD packets, flash the led in Blynk app
-
-
 
     setSyncInterval(10 * 60);                                                                      // Time Sync interval in seconds (10 minutes)
 
