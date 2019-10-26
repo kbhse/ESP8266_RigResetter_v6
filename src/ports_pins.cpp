@@ -32,28 +32,28 @@ void setPortPins()
 /*
 Blynk Virtual Pins:
 
-V0  Button          Motherboard A Power Switch
-V1  LED             Motherboard A Power LED                 WidgetLED PowerLedA
-V2  Button          Motherboard A Reset Switch
-V3  LED             Heartbeat A LED                         WidgetLED heartbeatLedA
-V4  Button          Motherboard B Power Switch
-V5  LED             Motherboard B Power LED                 WidgetLED PowerLedB
-V6  Button          Motherboard B Reset Switch
-V7  LED             Heartbeat B LED                         WidgetLED heartbeatLedB
+V0  Button          APP -> DEVICE   Motherboard A Power Switch
+V1  LED             DEVICE -> APP   Motherboard A Power LED                 WidgetLED PowerLedA
+V2  Button          APP -> DEVICE   Motherboard A Reset Switch
+V3  LED             DEVICE -> APP   Heartbeat A LED                         WidgetLED heartbeatLedA
+V4  Button          APP -> DEVICE   Motherboard B Power Switch
+V5  LED             DEVICE -> APP   Motherboard B Power LED                 WidgetLED PowerLedB
+V6  Button          APP -> DEVICE   Motherboard B Reset Switch
+V7  LED             DEVICE -> APP   Heartbeat B LED                         WidgetLED heartbeatLedB
 V10 Terminal                                                WidgetTerminal terminal
-V11 Button          Motherboard A auto-restart
-V12 Button          Motherboard B auto-restart
-V15 Button          Aux Fan 1 (Relay1)
-V16 Button          Aux Fan 2 (Relay2)
-V19 Button          Aux Output
-V22 LED             Aux Input connected to CONFIG Switch    WidgetLED ConfigSwitchLed
-V30 Numeric Input   smosSrrUdpPort
-V31 Numeric Input   smosSrrTimeout
-V32 Numeric Input   smosSrrSerial A
-V33 Numeric Input   smosSrrSlot A
-V36 Numeric Input   smosSrrSerial A
-V37 Numeric Input   smosSrrSlot B
-V42 SuperChart      SHT30 Temperature
-V43 SuperChart      SHT30 Humidity
-V50 Labeled Value   message on screen
+V11 Button          APP -> DEVICE   Motherboard A auto-restart
+V12 Button          APP -> DEVICE   Motherboard B auto-restart
+V15 Button          APP -> DEVICE   Aux Fan 1 (Relay1)
+V16 Button          APP -> DEVICE   Aux Fan 2 (Relay2)
+V19 Button          APP -> DEVICE   Aux Output
+V22 LED             DEVICE -> APP   Aux Input connected to CONFIG Switch    WidgetLED ConfigSwitchLed
+V30 Numeric Input   APP -> DEVICE   smosSrrUdpPort
+V31 Numeric Input   APP -> DEVICE   smosSrrTimeout
+V32 Numeric Input   APP -> DEVICE   smosSrrSerial A
+V33 Numeric Input   APP -> DEVICE   smosSrrSlot A
+V36 Numeric Input   APP -> DEVICE   smosSrrSerial A
+V37 Numeric Input   APP -> DEVICE   smosSrrSlot B
+V42 SuperChart      DEVICE -> APP   SHT30 Temperature
+V43 SuperChart      DEVICE -> APP   SHT30 Humidity
+V50 Labeled Value   DEVICE -> APP   message on screen
 */

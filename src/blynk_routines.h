@@ -298,7 +298,7 @@ BLYNK_WRITE(V32)
 	{
 	int val = param.asInt();
 	mbA.setSmosSrrSerial(val);
-	#ifdef TERMINAL_OUT
+	#ifdef TERMINAL_OUT_VERBOSE
     	terminal.print(dateAndTime());
     	terminal.print(F(" SRR Serial A set to: "));
     	terminal.println(mbA.getSmosSrrSerial());
@@ -312,6 +312,12 @@ BLYNK_WRITE(V33)
 	{
 	int val = param.asInt();
 	mbA.setSmosSrrSlot(val);
+	#ifdef TERMINAL_OUT_VERBOSE
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" SRR Slot A set to: "));
+    	terminal.println(mbA.getSmosSrrSlot());
+    	terminal.flush();
+  	#endif
 	}
 
 // a Numeric Input widget in the app on (V36) calls this function when its state changes
@@ -320,6 +326,12 @@ BLYNK_WRITE(V36)
 	{
 	int val = param.asInt();
 	mbB.setSmosSrrSerial(val);
+	#ifdef TERMINAL_OUT_VERBOSE
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" SRR Serial B set to: "));
+    	terminal.println(mbB.getSmosSrrSerial());
+    	terminal.flush();
+  	#endif
 	}
 
 // a Numeric Input widget in the app on (V37) calls this function when its state changes
@@ -328,6 +340,12 @@ BLYNK_WRITE(V37)
 	{
 	int val = param.asInt();
 	mbB.setSmosSrrSlot(val);
+	#ifdef TERMINAL_OUT_VERBOSE
+    	terminal.print(dateAndTime());
+    	terminal.print(F(" SRR Slot B set to: "));
+    	terminal.println(mbB.getSmosSrrSlot());
+    	terminal.flush();
+  	#endif
 	}
 
 // ------------------------------------ Helper Functions ------------------------------------------
