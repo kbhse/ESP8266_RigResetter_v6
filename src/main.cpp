@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.012"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.014"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -10,7 +10,7 @@
 #include <Arduino.h>
 #include "defines.h"
 //#include <ESP8266WiFi.h>
-//#include <BlynkSimpleEsp8266_SSL.h>                                                                          // Blynk SSL library
+//#include <BlynkSimpleEsp8266_SSL.h>                                                                // Blynk SSL library
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"
@@ -18,6 +18,7 @@
 #include "SmosSrrUdp.h"
 //#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
 #include <WidgetRTC.h>
+#include "ports_pins.h"
 
 
 // NB remove credentials when WiFi Manager enabled !!

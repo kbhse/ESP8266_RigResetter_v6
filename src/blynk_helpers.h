@@ -8,11 +8,6 @@
 // blynk_routines helper functions
 // -------------------------------
 
-// set the pins of the PCF8574 MP device
-// and the PCF8574 P device
-// why is this in blynk_routines ???
-void setPortPins();
-
 // called from: main.cpp
 // read the state of the pcb inputs
 // called by timer (timer.setInterval(500L, getPcbInputs)) in setup()

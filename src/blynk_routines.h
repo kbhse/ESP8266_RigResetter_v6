@@ -31,6 +31,7 @@ WidgetTerminal terminal(V10);
 
 SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
+/*
 void setPortPins()
 	{
 	// set the pins of the PCF8574 MP device
@@ -55,6 +56,7 @@ void setPortPins()
 	pcbPowerLed.setAuxOutPin(3);                                                                     // the 5V pcb power led
 	pcbPowerLed.setActiveHIGH(true);
 	}
+*/
 
 // ------------------------------------ BLYNK_WRITE -----------------------------------------------
 
