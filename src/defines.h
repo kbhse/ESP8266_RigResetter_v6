@@ -1,9 +1,9 @@
 /* defines.h */
 
-#include <Arduino.h>
-
 #ifndef DEFINES_H   /* include guards */
 #define DEFINES_H
+
+    #include <Arduino.h>
 
     #define DEBUG_OUT
     #define TERMINAL_OUT

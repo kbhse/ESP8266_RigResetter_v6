@@ -18,19 +18,8 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 #include "defines.h"
 
 extern SimpleTimer timer;
-extern int wd_timer_A_id;                                                                                   // ids of watchdog timers
+extern int wd_timer_A_id;                                                                          // ids of watchdog timers
 extern int wd_timer_B_id;
-
-Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
-Motherboard mbA;
-Motherboard mbB;
-
-AuxOut fan1;
-AuxOut fan2;
-AuxOut auxOutP6;                                                                                   // auxiliary output on PCF8574 P6
-AuxIn auxInP7;                                                                                     // auxiliary input on PCF8574 P7 (CONFIG switch)
-
-AuxOut pcbPowerLed;                                                                                // the 5V pcb power led
 
 WidgetLED PowerLedA(V1);                                                                           // indicates state of motherboard A power led
 WidgetLED PowerLedB(V5);                                                                           // indicates state of motherboard B power led
@@ -39,8 +28,8 @@ WidgetLED heartbeatLedA(V3);                                                    
 WidgetLED heartbeatLedB(V7);                                                                       // 
 
 WidgetTerminal terminal(V10);
-SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
+SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
 void setPortPins()
 	{

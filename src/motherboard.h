@@ -4,9 +4,9 @@
 #define MOTHERBOARD_H
 
     #include <Arduino.h>
-    #include "PCF8574.h"
+    //#include "PCF8574.h"
 
-    extern PCF8574 pcfMP;
+    //extern PCF8574 pcfMP;
 
     class Motherboard
         {
@@ -75,5 +75,9 @@
             void setSmosSrrSlot(int val);
 
         };
+
+    extern Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
+    extern Motherboard mbA;
+    extern Motherboard mbB;
 
 #endif /* MOTHERBOARD_H */

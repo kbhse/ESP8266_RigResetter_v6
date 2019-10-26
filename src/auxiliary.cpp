@@ -2,9 +2,16 @@
 
 #include <Arduino.h>
 #include "auxiliary.h"
+#include "PCF8574.h"
 #include "defines.h"
 
 PCF8574 pcfP(0x38);                                                                                // create instance of the PCF8574 class for the P device
+
+AuxOut fan1;
+AuxOut fan2;
+AuxOut auxOutP6;                                                                                   // auxiliary output on PCF8574 P6
+AuxOut pcbPowerLed;                                                                                // the 5V pcb power led
+AuxIn auxInP7;                                                                                     // auxiliary input on PCF8574 P7 (CONFIG switch)
 
 // Getters
 

@@ -17,14 +17,13 @@
 	// statusLED(7, "wiFiManagerDo() - configuration complete, TURN CONFIG SWITCH OFF then restart system!")
 	// continuous, 500ms delay, connecting to WiFi, run from connectToLastUsedAccessPoint()
 
+#include "ESPConfigurationAP.h"
 #include <FS.h>                                                                                    // this needs to be first, or it all crashes and burns...
 #include <Arduino.h>
 #include "WiFiManager.h"                                                                           // https://github.com/tzapu/WiFiManager
 #include "ArduinoJson.h"                                                                           // https://github.com/bblanchon/ArduinoJson NB must be v5
-#include "ESPConfigurationAP.h"
+#include "auxiliary.h"
 #include "defines.h"
-
-//extern PCF8574 pcfP;
 
 char blynk_token[34] = "BLYNK_TOKEN";
 boolean shouldSaveConfig = false;

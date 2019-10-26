@@ -1,16 +1,21 @@
 /* SmosSrrUdp.cpp */
 
 #include <Arduino.h>
-#include "SmosSrrUdp.h"
+#include "SmosSrrUdp.h"                                                                            // include header so I can put functions here in any order
 #include "ESPAsyncUDP.h"                                                                           // https://github.com/me-no-dev/ESPAsyncUDP
+#include <ESP8266WiFi.h>
+#include "PCF8574.h"
+#include "motherboard.h"
 #include "defines.h"
-
-extern SimpleTimer timer;
-extern void testjmm2();
-extern void flashHeartbeatLedA();
-extern void flashHeartbeatLedB();
+#include "blynk_helpers.h"
 
 AsyncUDP udp;                                                                                      // create instance of AsyncUPD object
+
+extern Motherboard mb;
+extern Motherboard mbA;
+extern Motherboard mbB;
+
+extern PCF8574 pcfMP;                                       // NB  the definition in auxiliary.cpp is 'PCF8574 pcfP(0x38)' but the extern declaration here shouldn't include (0x38) !!
 
 //-----------------------------------------------------------
 // (approx every 2 seconds)
@@ -64,7 +69,6 @@ void listenForSmosUdpPackets()
                 if(smosSrrSerial == mbA.getSmosSrrSerial())                                        // if the serial number in the packet (set in SMOS SRR) matches serialA (as set in Blynk app)
                     {
                     flashHeartbeatLedA();                                                          // flash the PCB heartbeat LED A and restart the watchdog timer (function in blynk_routines.h)
-                    //timer.restartTimer(wd_timer_A_id);                                           // restart the watchdog timer for motherboard A
                     }
                 if(smosSrrSerial == mbB.getSmosSrrSerial())                                        // if the serial number in the packet (set in SMOS SRR) matches serialB (as set in Blynk app)
                     {

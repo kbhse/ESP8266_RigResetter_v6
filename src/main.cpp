@@ -9,14 +9,14 @@
 
 #include <Arduino.h>
 #include "defines.h"
-#include <ESP8266WiFi.h>
+//#include <ESP8266WiFi.h>
 //#include <BlynkSimpleEsp8266_SSL.h>                                                                          // Blynk SSL library
 #include "BlynkSimpleEsp8266.h"                                                                    // can only put this header in 1 place 'cause it includes definitions !
 #include "blynk_routines.h"                                                                        // NB this must come AFTER #include "BlynkSimpleEsp8266.h" !
 #include "ESPConfigurationAP.h"
-#include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
+//#include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
-#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
+//#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
 #include <WidgetRTC.h>
 
 

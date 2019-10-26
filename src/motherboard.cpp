@@ -17,6 +17,10 @@
     bool _autoRestartFlag;
 */
 
+Motherboard mb;                                                                                    // only used for smosSrrUdpPort and smosSrrTimeout
+Motherboard mbA;
+Motherboard mbB;
+
 PCF8574 pcfMP(0x39);                                                                               // create instance of the PCF8574 class for the MP device
 
 void Motherboard::pcf8574_init()

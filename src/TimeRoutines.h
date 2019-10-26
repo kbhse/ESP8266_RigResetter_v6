@@ -6,7 +6,6 @@
     #include <Arduino.h>
 
     String dateAndTime();
-
     String getLeading(int digits);
 
 #endif // TimeRoutines_H
