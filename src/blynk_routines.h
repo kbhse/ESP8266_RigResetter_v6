@@ -15,6 +15,7 @@ see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-defi
 #include "auxiliary.h"
 #include "TimeRoutines.h"
 #include "WEMOS_SHT3X.h"                                                                           // Wemos Temperature and Humidity shield library
+#include <WidgetRTC.h>
 #include "defines.h"
 
 extern SimpleTimer timer;
@@ -31,32 +32,13 @@ WidgetTerminal terminal(V10);
 
 SHT3X sht30(0x44);                                                                                 // create an instance of the SHT3X class (SHT30 sensor shield has two user selectable I2C addresses)
 
-/*
-void setPortPins()
-	{
-	// set the pins of the PCF8574 MP device
-	// motherboard A (mbA)
-	mbA.setPowerSwitchPin(0);
-	mbA.setPowerLedPin(1);
-	mbA.setResetSwitchPin(2);
-	mbA.setHeartbeatLedPin(3);
-	// motherboard B (mbB)
-	mbB.setPowerSwitchPin(4);
-	mbB.setPowerLedPin(5);
-	mbB.setResetSwitchPin(6);
-	mbB.setHeartbeatLedPin(7);
-	// set the pins of the PCF8574 P device
-	fan1.setAuxOutPin(4);                                                                            // Fan 1
-	fan1.setActiveHIGH(false);
-	fan2.setAuxOutPin(5);                                                                            // Fan 2
-	fan2.setActiveHIGH(false);
-	auxOutP6.setAuxOutPin(6);                                                                        // auxiliary output on PCF8574 P6
-	auxOutP6.setActiveHIGH(true);
-	auxInP7.setAuxInPin(7);                                                                          // auxiliary input on PCF8574 P7 (CONFIG switch)
-	pcbPowerLed.setAuxOutPin(3);                                                                     // the 5V pcb power led
-	pcbPowerLed.setActiveHIGH(true);
-	}
-*/
+WidgetRTC rtc;
+
+BLYNK_CONNECTED()
+    {
+    // Synchronize time on connection
+    rtc.begin();
+    }
 
 // ------------------------------------ BLYNK_WRITE -----------------------------------------------
 

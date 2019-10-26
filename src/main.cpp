@@ -1,7 +1,7 @@
 /*  src/main.cpp */
 
 #define PROGNAM "ESP8266_RigResetter"                                                              // program name
-#define VERSION "v6.014"                                                                           // program version (nb lowercase 'version' is keyword)
+#define VERSION "v6.015"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
 #define AUTHOR "J Manson"                                                                          // created by
@@ -17,7 +17,7 @@
 //#include "SimpleTimer.h"                                                                           // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 #include "SmosSrrUdp.h"
 //#include "TimeLib.h"                                                                               // https://github.com/PaulStoffregen/Time
-#include <WidgetRTC.h>
+//#include <WidgetRTC.h>
 #include "ports_pins.h"
 
 
@@ -31,17 +31,17 @@ char auth[] = "********************************";                               
 //BlynkTimer timer;
 SimpleTimer timer;                                                                                 // use SimpleTimer (instead of BlynkTimer in BlynkSimpleEsp8266.h) so I can include header in multiple files
 
-WidgetRTC rtc;
+//WidgetRTC rtc;
 
 int wd_timer_A_id;                                                                                 // ids of watchdog timers
 int wd_timer_B_id;
-
+/*
 BLYNK_CONNECTED()
     {
     // Synchronize time on connection
     rtc.begin();
     }
-
+*/
 
 
 void setup()
