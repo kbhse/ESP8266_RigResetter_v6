@@ -4,7 +4,7 @@
 #define VERSION "v6.016"                                                                           // program version (nb lowercase 'version' is keyword)
 #define PGMFUNCT "Remotely power-cycle a crypto mining rig"                                        // what the program does
 #define HARDWARE "Rig Resetter, ESP8266 Breakout, v6.0"                                            // hardware version
-#define AUTHOR "J Manson"                                                                          // created by
+#define AUTHOR ""                                                                          // created by
 #define CREATION_DATE "October 2019"                                                               // date
 
 #include <Arduino.h>

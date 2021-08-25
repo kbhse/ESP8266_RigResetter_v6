@@ -1,7 +1,7 @@
 /*  src/blynk_routines.h */
 
 /*
-this isn't 'correct' way but blynk header files contain definitions so can't include BlynkSimpleEsp8266.h header in more than 1 file
+blynk header files contain definitions so can't include BlynkSimpleEsp8266.h header in more than 1 file
 or get 'multiple definition of blynk' error at compile.
 so put BLYNK_WRITE functions in this header file and include it in main.cpp AFTER #include "BlynkSimpleEsp8266.h". this is my solution ...
 see https://arduino.stackexchange.com/questions/58358/how-to-avoid-multiple-definition-of-blynk-error for context (but not this solution).
